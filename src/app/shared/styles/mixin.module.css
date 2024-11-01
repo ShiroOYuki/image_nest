@@ -4,5 +4,5 @@
 
 .shadow,
 .box-shadow {
-    box-shadow: 0px 0px var(--size-4-1) black;
+    box-shadow: 0 0 8px -4px black;
 }

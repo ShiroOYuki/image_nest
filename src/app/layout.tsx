@@ -1,6 +1,10 @@
 import '@/app/shared/styles/variables.css'
 import '@/app/shared/styles/global.css'
 
+import './page.css'
+import styles from './page.module.css'
+import mixinStyles from './shared/styles/mixin.module.css'
+
 export default function RootLayout({
   children,
 }: {
@@ -8,7 +12,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div className={`${styles.container} ${mixinStyles.rounded} ${mixinStyles.shadow}`}>
+          {children}
+        </div>
+      </body>
     </html>
   )
 }

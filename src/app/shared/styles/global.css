@@ -16,3 +16,25 @@
     inset: 0px;
     font-family: 'MonoVF', Arial, Helvetica, sans-serif;
 }
+
+*::-webkit-scrollbar {
+    /* background-color: red; */
+    width: 4px;
+    height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background-color: transparent;
+    box-shadow: 0px 0px 10px -8px inset;
+    border-radius: 4px;
+}
+
+*::-webkit-scrollbar-button {
+    display: none;
+}
+
+*::-webkit-scrollbar-thumb {
+    margin: 3px;
+    background-color: lightgray;
+    border-radius: 8px;
+}

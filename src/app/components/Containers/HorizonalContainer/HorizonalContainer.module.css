@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+    flex-direction: row;
+
+    gap: var(--size-4-4);
+    padding: var(--size-4-4);
+    padding-bottom: var(--size-4-2);
+
+    width: 100%;
+    overflow-x: auto;
+}

@@ -1,0 +1,10 @@
+.scrollX {
+    overflow-y: hidden;
+    overflow-x: scroll;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.scrollX::-webkit-scrollbar {
+    display: none;
+}

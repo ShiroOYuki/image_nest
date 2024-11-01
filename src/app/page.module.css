@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    min-height: 100vh;
+    height: 100%;
+
+    margin: 0px var(--size-4-4);
+    padding: var(--size-4-4) 0px;
+
+    z-index: 1;
+}
+
+.container > * {
+    z-index: 2;
+}
