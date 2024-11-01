@@ -1,0 +1,18 @@
+.imagebox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 360px;
+    height: 300px;
+    max-width: 360px;
+    max-height: 300px;
+
+    overflow: hidden;
+}
+
+.imagebox > .image {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}

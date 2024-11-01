@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'MonoVF';
+    src: url('../fonts/GeistMonoVF.woff');
+}
+
+@font-face {
+    font-family: 'VF';
+    src: url('../fonts/GeistVF.woff');
+}
+
+* {
+    box-sizing: border-box;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+    inset: 0px;
+    font-family: 'MonoVF', Arial, Helvetica, sans-serif;
+}
