@@ -4,12 +4,12 @@ import styles from "./LinkedImage.module.css"
 
 export default function LinkedImage({
     src,
-    placeholder,
-    url
+    placeholder="",
+    url="."
 }: {
     src: string,
-    placeholder: string,
-    url: string
+    placeholder?: string,
+    url?: string
 }) {
     return <Link href={url} className={styles.link}>
         <ImageBox src={src} placeholder={placeholder} />
