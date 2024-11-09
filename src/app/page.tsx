@@ -1,7 +1,7 @@
-import ImageBox from "../components/ImageBox/ImageBox"
-import LinkedImage from "../components/LinkedImage/LinkedImage"
-import ImageCard from "../components/Cards/ImageCard/ImageCard"
-import HorizonalContainer from "../components/Containers/HorizonalContainer/HorizonalContainer"
+import ImageBox from "@/app/components/ImageBox/ImageBox"
+import LinkedImage from "@/app/components/LinkedImage/LinkedImage"
+import ImageCard from "@/app/components/Cards/ImageCard/ImageCard"
+import HorizonalContainer from "@/app/components/Containers/HorizonalContainer/HorizonalContainer"
 
 export default function Page({
     params

@@ -5,26 +5,14 @@ import './page.css'
 import styles from './page.module.css'
 import mixinStyles from '@/app/shared/styles/mixin.module.css'
 
-import { dir } from 'i18next'
-
-const languages = ["en", "zh-Hant"];
-
-export async function generateStaticParams() {
-    const params = languages.map((lang) => ({ lang }));
-    console.log("Generated static params:", params);
-}
-
 export default function RootLayout({
-    children,
-    params
+    children
 }: {
-    children: React.ReactNode,
-    params: {lang: string}
+    children: React.ReactNode
 }) {
-    const lang = params.lang;
 
     return (
-        <html lang={lang} dir={dir(lang)}>
+        <html lang="en">
             <body>
                 <div className={`${styles.container} ${mixinStyles.rounded} ${mixinStyles.shadow}`}>
                     {children}
