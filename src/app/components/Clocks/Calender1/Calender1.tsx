@@ -6,8 +6,8 @@ import styles from "./Calender1.module.css";
 function getDate(): string[] {
     const date = new Date()
     const y = date.getFullYear().toString().padStart(4, "0");
-    const m = date.getMonth().toString().padStart(2, "0");
-    const d = date.getDay().toString().padStart(2, "0");
+    const m = (date.getMonth() + 1).toString().padStart(2, "0");
+    const d = (date.getUTCDate() + 1).toString().padStart(2, "0");
     return [y, m, d];
 }
 
