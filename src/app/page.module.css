@@ -1,17 +1,97 @@
 .container {
     display: flex;
     flex-direction: column;
-    flex: 1;
 
-    min-height: 100vh;
-    height: 100%;
+    align-items: center;
+    padding: 8px;
 
-    margin: 0px var(--size-4-4);
-    padding: var(--size-4-4) 0px;
-
-    z-index: 1;
+    transition: background-color 1s linear;
 }
 
-.container > * {
-    z-index: 2;
+.header,
+.footer {
+    display: flex;
+    width: 100%;
+    height: 80px;
+    gap: 8px;
+}
+
+.body {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.linkBtn > img {
+    fill: white;
+}
+
+/* left, center, right */
+
+.header > .left,
+.header > .center,
+.header > .right {
+    align-items: flex-start;
+}
+
+.footer > .left,
+.footer > .center,
+.footer > .right {
+    align-items: flex-end;
+}
+
+.left,
+.center,
+.right {
+    display: flex;
+    flex: 1;
+    gap: 8px;
+    color: white;
+}
+
+.left {
+    justify-content: flex-start;
+}
+
+.center {
+    justify-content: center;
+}
+
+.right {
+    justify-content: flex-end;
+}
+
+/* slider */
+
+#brightness {
+    writing-mode: vertical-lr;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+#brightness,
+#brightness::-webkit-slider-thumb,
+#brightness::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+}
+
+#brightness::-webkit-slider-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: rgb(0, 182, 243);
+    transform: translateX(-6px);
+}
+
+#brightness::-webkit-slider-thumb:hover {
+    background-color: rgb(69, 206, 252);
+}
+
+#brightness::-webkit-slider-runnable-track {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255);
 }

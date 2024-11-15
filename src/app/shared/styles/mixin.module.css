@@ -3,6 +3,32 @@
 }
 
 .shadow,
-.box-shadow {
+.boxShadow {
     box-shadow: 0 0 8px -4px black;
+}
+
+.textShadow {
+    text-shadow: 0 0 4px black;
+}
+
+.glass {
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 8px -4px black;
+
+    border-width: 0px 2px 2px 0px;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.4);
+
+    border-radius: var(--size-4-3);
+}
+
+.glass.clickable:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.glass.clickable:active {
+    background-color: rgba(255, 255, 255, 0.4);
+    border-width: 2px 0px 0px 2px;
+    border-color: rgba(0, 0, 0, 0.2);
 }

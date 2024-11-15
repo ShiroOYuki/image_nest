@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap');
+
+.clock {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    color: white;
+    max-width: 450px;
+    height: 250px;
+    text-align: center;
+    overflow: show;
+    overflow-wrap: unset;
+    text-wrap: nowrap;
+}
+
+.clock > * {
+    font-family: "Saira Stencil One";
+    user-select: none;
+}
+
+.hour,
+.minute {
+    display: inline-block;
+    width: 200px;
+    font-size: 10rem;
+}
+
+.symbol {
+    display: inline-block;
+    width: 50px;
+    font-size: 6rem;
+}
+
+.second {
+    display: inline-block;
+    width: 60px;
+    font-size: 3rem;
+}

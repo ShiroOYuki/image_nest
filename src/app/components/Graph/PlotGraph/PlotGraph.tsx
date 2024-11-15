@@ -34,10 +34,10 @@ export default function PlotGraph({
         <svg
             viewBox="0 0 100 100" 
             xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="XmaxYmax meet"
+            preserveAspectRatio="none"              // 把內容拉伸，使其大小符合父容器
         >
             <defs>
-                <linearGradient id="blue-gradient" x1="0" y1="0" x2="0" y2="1">
+                <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
                     <stop offset="0%" stopColor="blue" stopOpacity="0.5" />
                     <stop offset="100%" stopColor="blue" stopOpacity="0" />
                 </linearGradient>
@@ -51,6 +51,7 @@ export default function PlotGraph({
                 stroke="blue"
                 strokeWidth="1"
                 fill="none"
+                vectorEffect="non-scaling-stroke"   // 在縮放的同時保持原本的線寬
             />
         </svg>
     </div>;
