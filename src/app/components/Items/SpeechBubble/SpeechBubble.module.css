@@ -1,0 +1,26 @@
+.bubble {
+    position: relative;
+    border-radius: 4px;
+    background-color: white;
+    padding: 4px;
+    min-width: 40px;
+}
+
+.bubble::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    transform: rotateZ(45deg);
+    top: -10px;
+    left: calc(50% - 10px);
+    z-index: 1;
+    border-radius: 2px;
+}
+
+.text {
+    position: relative;
+    color: black;
+    z-index: 2;
+}

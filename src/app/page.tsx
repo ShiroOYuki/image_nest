@@ -9,6 +9,7 @@ import styles from "./page.module.css";
 import mixinStyles from "@/app/shared/styles/mixin.module.css";
 
 import { useRouter } from "next/navigation";
+import SpeechBubble from "./components/Items/SpeechBubble/SpeechBubble";
 
 export default function Page() {
     const router = useRouter();
@@ -70,6 +71,7 @@ export default function Page() {
             onClick={() => {if(!changing) setchanging(true)}}
             className={styles.linkBtn}
             stroke="white"
+            hint="Change Background"
         ></GlassIconButton>
     )
 
@@ -106,7 +108,9 @@ export default function Page() {
             </div>
             <div className={styles.footer}>
                 <div className={styles.left}></div>
-                <div className={styles.center}></div>
+                <div className={styles.center}>
+                    <SpeechBubble text="adasdasdasd"></SpeechBubble>
+                </div>
                 <div className={styles.right}>
                     <p>#Shiro</p>
                 </div>
