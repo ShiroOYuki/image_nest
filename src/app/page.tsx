@@ -49,6 +49,7 @@ export default function Page() {
             onClick={() => router.push("/gallery")}
             className={styles.linkBtn}
             stroke="white"
+            hint="Gallery"
         ></GlassIconButton>
     )
 
@@ -60,6 +61,7 @@ export default function Page() {
             onClick={() => router.push("/crypto")}
             className={styles.linkBtn}
             stroke="white"
+            hint="Crypto"
         ></GlassIconButton>
     )
 
@@ -71,7 +73,7 @@ export default function Page() {
             onClick={() => {if(!changing) setchanging(true)}}
             className={styles.linkBtn}
             stroke="white"
-            hint="Change Background"
+            hint="Switch"
         ></GlassIconButton>
     )
 
@@ -109,7 +111,7 @@ export default function Page() {
             <div className={styles.footer}>
                 <div className={styles.left}></div>
                 <div className={styles.center}>
-                    <SpeechBubble text="adasdasdasd"></SpeechBubble>
+                    {/* <SpeechBubble text="adasdasdasd"></SpeechBubble> */}
                 </div>
                 <div className={styles.right}>
                     <p>#Shiro</p>
