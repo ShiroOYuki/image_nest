@@ -10,7 +10,7 @@ function calcPoints(data: number[], padding:number) {
     for (let i=0; i < data.length; i++) {
         const y = data[i] / max * (100 - padding*2) + padding;
         const x = 100 / (data.length-1) * i;
-        points += `${x},${y} `;
+        points += `${x},${100-y} `;
     }
     return points;
 }

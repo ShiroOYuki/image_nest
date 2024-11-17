@@ -23,8 +23,8 @@ async function fetchData(
 
         if (!resp.ok) throw new Error("Fetching data error.");
         const data = await resp.json();
-        setData([parseInt(data["records"]["location"][0]["weatherElement"][0]["time"][0]["parameter"]["parameterName"]), 30, 32, 40]);
-        // setData(data);
+        console.log(data);
+        setData([parseInt(data["records"]["location"][0]["weatherElement"][0]["time"][0]["parameter"]["parameterName"]), 30, 32, 40, 8, 7, 6, 5]);
         setLoading(false);
     }
     catch (e: any) {
@@ -97,8 +97,6 @@ export function WeatherPlotGraph({
 
     if (loading) return <p>Loading...</p>;
     if (isError) return <p>Error</p>;
-    console.log(data);
-    // return <></>
 
     return <PlotGraph 
         data={data}
