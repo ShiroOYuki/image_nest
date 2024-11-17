@@ -16,8 +16,8 @@ export async function GET() {
     const apiKey = process.env.CMC_API_KEY;
     const testApiKey = process.env.TEST_CMC_API_KEY
 
-    if (!apiKey) return NextResponse.json({ error: 'API Key is missing' }, { status: 500 });
-    if (!testApiKey) return NextResponse.json({ error: 'Test API Key is missing' }, { status: 500 });
+    if (!apiKey) return NextResponse.json({ error: 'API Key is missing.' }, { status: 500 });
+    if (!testApiKey) return NextResponse.json({ error: 'Test API Key is missing.' }, { status: 500 });
 
     try {
         const URL = 'https://sandbox-api.coinmarketcap.com/v2/cryptocurrency/quotes/historical';

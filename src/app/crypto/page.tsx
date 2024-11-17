@@ -42,5 +42,12 @@ export default function Page() {
     const container = createElement("div", {children: makeTexts(data)});
     const prices = extractPrice(data);
 
-    return <PlotGraph prices={prices} padding={10}></PlotGraph>;
+    return (
+        <>
+            <PlotGraph data={prices} padding={10} color="red"></PlotGraph>
+            <PlotGraph data={prices} padding={10} color="green"></PlotGraph>
+            <PlotGraph data={prices} padding={10} color="blue"></PlotGraph>
+            <PlotGraph data={prices} padding={10} color="white"></PlotGraph>
+        </>
+    );
 }

@@ -1,33 +1,33 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styles from "./PlotGraph.module.css";
+import { colorCode, PlotGraphProps } from "../PlotVariables";
 
-function calcPoints(prices: number[], padding:number) {
+function calcPoints(data: number[], padding:number) {
     let points = "";
-    const max = Math.max(...prices);
-    for (let i=0; i < prices.length; i++) {
-        const y = prices[i] / max * (100 - padding*2) + padding;
-        const x = 100 / (prices.length-1) * i;
+    const max = Math.max(...data);
+    for (let i=0; i < data.length; i++) {
+        const y = data[i] / max * (100 - padding*2) + padding;
+        const x = 100 / (data.length-1) * i;
         points += `${x},${y} `;
     }
     return points;
 }
 
-interface PlotGraphParams {
-    prices: number[],
-    padding?: number
-}
-
 export default function PlotGraph({
-    prices,  
-    padding=0
-}: PlotGraphParams) {
+    data,  
+    padding=0,
+    color="red"
+}: PlotGraphProps) {
     const [points, setPoints] = useState<string>("");
+    const gradientId = useMemo(() => {
+        return `linear-gradient-${Date.now()}-${Math.random()}`
+    }, []);
 
     useEffect(() => {
-        setPoints(calcPoints(prices, padding));
-    }, [prices]);
+        setPoints(calcPoints(data, padding));
+    }, [data]);
     
 
     return <div className={styles.container}>
@@ -37,18 +37,18 @@ export default function PlotGraph({
             preserveAspectRatio="none"              // 把內容拉伸，使其大小符合父容器
         >
             <defs>
-                <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="blue" stopOpacity="0.5" />
-                    <stop offset="100%" stopColor="blue" stopOpacity="0" />
+                <linearGradient id={gradientId} x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor={colorCode[color]} stopOpacity="0.3" />
+                    <stop offset="100%" stopColor={colorCode[color]} stopOpacity="0" />
                 </linearGradient>
             </defs>
             <polygon 
                 points={points + "100,100 0,100"}
-                fill= "url(#blue-gradient)"
+                fill={`url(#${gradientId})`}
             />
             <polyline 
                 points={points} 
-                stroke="blue"
+                stroke={colorCode[color]}
                 strokeWidth="1"
                 fill="none"
                 vectorEffect="non-scaling-stroke"   // 在縮放的同時保持原本的線寬

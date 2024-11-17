@@ -9,7 +9,7 @@ import styles from "./page.module.css";
 import mixinStyles from "@/app/shared/styles/mixin.module.css";
 
 import { useRouter } from "next/navigation";
-import SpeechBubble from "./components/Items/SpeechBubble/SpeechBubble";
+import TemperaturePlotGraph from "./components/Graph/TemperaturePlotGraph/TemperaturePlotGraph";
 
 export default function Page() {
     const router = useRouter();
@@ -112,6 +112,7 @@ export default function Page() {
                 <div className={styles.left}></div>
                 <div className={styles.center}>
                     {/* <SpeechBubble text="adasdasdasd"></SpeechBubble> */}
+                    <TemperaturePlotGraph></TemperaturePlotGraph>
                 </div>
                 <div className={styles.right}>
                     <p>#Shiro</p>
