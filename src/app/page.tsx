@@ -9,7 +9,6 @@ import styles from "./page.module.css";
 import mixinStyles from "@/app/shared/styles/mixin.module.css";
 
 import { useRouter } from "next/navigation";
-import TemperaturePlotGraph from "./components/Graph/TemperaturePlotGraph/TemperaturePlotGraph";
 
 export default function Page() {
     const router = useRouter();
@@ -20,6 +19,7 @@ export default function Page() {
     const [bg, setBg] = useState(0);
     const [changing, setchanging] = useState(false);
 
+    // auto change background per 60s
     useEffect(() => {
         const bgTimer = setInterval(() => {
             setchanging(true);
@@ -28,6 +28,7 @@ export default function Page() {
         return () => clearInterval(bgTimer);
     }, []);
 
+    // linear change background
     useEffect(() => {
         if (changing) {
             nowBrightness.current = brightness;
@@ -111,8 +112,6 @@ export default function Page() {
             <div className={styles.footer}>
                 <div className={styles.left}></div>
                 <div className={styles.center}>
-                    {/* <SpeechBubble text="adasdasdasd"></SpeechBubble> */}
-                    <TemperaturePlotGraph></TemperaturePlotGraph>
                 </div>
                 <div className={styles.right}>
                     <p>#Shiro</p>
