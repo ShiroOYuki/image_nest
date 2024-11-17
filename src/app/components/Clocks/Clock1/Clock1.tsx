@@ -5,7 +5,7 @@ import styles from "./Clock1.module.css"
 import mixinStyles from "@/app/shared/styles/mixin.module.css";
 
 function getTime(): string[] {
-    const d = new Date()
+    const d = new Date();
     const h = d.getHours().toString().padStart(2, "0");
     const m = d.getMinutes().toString().padStart(2, "0");
     const s = d.getSeconds().toString().padStart(2, "0");
