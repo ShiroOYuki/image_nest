@@ -10,6 +10,8 @@ import mixinStyles from "@/app/shared/styles/mixin.module.css";
 
 import { useRouter } from "next/navigation";
 import { WeatherPlotGraph } from "./components/Graph/WeatherPlotGraph/WeatherPlotGraph";
+import { getLocation } from "./utils/utils";
+import { Coordinate } from "./utils/interfaces/api/weatherapi";
 
 export default function Page() {
     const router = useRouter();
@@ -19,12 +21,17 @@ export default function Page() {
     const bgs = ["/imgs/backgrounds/bg1.png", "/imgs/backgrounds/bg2.png", "/imgs/backgrounds/bg3.jpg"];
     const [bg, setBg] = useState(0);
     const [changing, setchanging] = useState(false);
+    const [location, setLocation] = useState<Coordinate>([0, 0]);
+    const [loading, setLoading] = useState(true);
 
-    // auto change background per 60s
     useEffect(() => {
+        // auto change background per 60s
         const bgTimer = setInterval(() => {
             setchanging(true);
         }, 60*1000);
+
+        setLocation(getLocation());
+        setLoading(false);
 
         return () => clearInterval(bgTimer);
     }, []);
@@ -42,6 +49,8 @@ export default function Page() {
             return () => clearInterval(changingTimer);
         }
     }, [changing]);
+
+    if (loading) return <p>Loading...</p>;
 
     const galleryButton = (
         <GlassIconButton
@@ -114,9 +123,10 @@ export default function Page() {
                 <div className={styles.left}></div>
                 <div className={styles.center}>
                     {/* <WeatherPlotGraph
-                        locationName="高雄市"
                         color="white"
-                        feature="chanceOfRain"
+                        feature="temperature"
+                        days={1}
+                        coordinate={location}
                     /> */}
                 </div>
                 <div className={styles.right}>

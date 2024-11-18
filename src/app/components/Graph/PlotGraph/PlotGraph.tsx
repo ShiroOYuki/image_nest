@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import styles from "./PlotGraph.module.css";
-import { colorCode, PlotGraphProps } from "../PlotVariables";
+import { colorCode, Colors, PlotGraphProps } from "../PlotVariables";
 
 function calcPoints(data: number[], padding:number) {
     if (data.length === 0) return ""; // 處理空數據
@@ -20,6 +20,25 @@ function calcPoints(data: number[], padding:number) {
         points += `${x},${100-y} `;
     }
     return points;
+}
+
+interface LinearGradientProps {
+    gradientId: string;
+    color: Colors;
+}
+
+export function LinearGradientFactory({
+    gradientId,
+    color="red"
+}: LinearGradientProps) {
+    return (
+        <defs>
+            <linearGradient id={gradientId} x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor={colorCode[color]} stopOpacity="0.3" />
+                <stop offset="100%" stopColor={colorCode[color]} stopOpacity="0" />
+            </linearGradient>
+        </defs>
+    );
 }
 
 export default function PlotGraph({
@@ -43,12 +62,7 @@ export default function PlotGraph({
             xmlns="http://www.w3.org/2000/svg"
             preserveAspectRatio="none"              // 把內容拉伸，使其大小符合父容器
         >
-            <defs>
-                <linearGradient id={gradientId} x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor={colorCode[color]} stopOpacity="0.3" />
-                    <stop offset="100%" stopColor={colorCode[color]} stopOpacity="0" />
-                </linearGradient>
-            </defs>
+            <LinearGradientFactory gradientId={gradientId} color={color} />
             <polygon 
                 points={points + "100,100 0,100"}
                 fill={`url(#${gradientId})`}

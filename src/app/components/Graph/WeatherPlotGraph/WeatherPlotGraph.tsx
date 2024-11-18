@@ -3,22 +3,22 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { PlotGraphProps } from "../PlotVariables";
 import PlotGraph from "../PlotGraph/PlotGraph";
-import { weatherDataFactory } from "@/app/utils/weatherPlotHelper";
-import { DataFeature, WeatherriskApiDataProps, WeatherriskApiRequestProps } from "@/app/utils/interfaces/api/weatherrisk";
+import { DataFeature, Forecast, ForecastRequiredProps } from "@/app/utils/interfaces/api/weatherapi";
+import { weatherDataFactory } from "@/app/utils/factory/api/weatherapi/weatherHelper";
 
 async function fetchData(
     setData: Dispatch<SetStateAction<number[]>>,
     setLoading: Dispatch<SetStateAction<boolean>>,
     setIsError: Dispatch<SetStateAction<boolean>>,
-    props: WeatherriskApiRequestProps,
+    props: ForecastRequiredProps,
     feature: DataFeature
 ) {
     try {
         const payload = new URLSearchParams(Object.entries(props));
-        const resp = await fetch(`/api/weatherrisk/getTemperature?${payload}`, {method: "GET"});
+        const resp = await fetch(`/api/weatherapi/getWeather?${payload}`, {method: "GET"});
 
         if (!resp.ok) throw new Error("Fetching data error.");
-        const data: WeatherriskApiDataProps[] = await resp.json();
+        const data: Forecast = await resp.json();
         const processedData = weatherDataFactory(data, feature);
         console.log(data);
         console.log(processedData);
@@ -34,16 +34,16 @@ async function fetchData(
 
 type DefaultPlotProps = Pick<PlotGraphProps, "color" | "padding">;
 
-interface WeatherPlotProps extends DefaultPlotProps {
-    locationName: string;
+interface WeatherPlotProps extends DefaultPlotProps, ForecastRequiredProps {
     feature?: DataFeature;
 };
 
 export function WeatherPlotGraph({
-    locationName,
     padding=10,
     color="red",
-    feature="temperature"
+    feature="temperature",
+    days=1,
+    coordinate=[22.633, 120.35]
 }: WeatherPlotProps) {
     const [data, setData] = useState<number[]>([]);
     const [loading, setLoading] = useState(true);
@@ -53,7 +53,7 @@ export function WeatherPlotGraph({
             setData, 
             setLoading, 
             setIsError, 
-            { locationName: locationName },
+            { coordinate: coordinate, days: days },
             feature=feature
         );
     }, []);

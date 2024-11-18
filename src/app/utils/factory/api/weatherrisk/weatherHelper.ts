@@ -1,4 +1,4 @@
-import { DataFeature, WeatherriskApiDataProps } from "./interfaces/api/weatherrisk";
+import { DataFeature, WeatherriskApiDataProps } from "@/app/utils/interfaces/api/weatherrisk";
 
 export function weatherDataFactory(
     data: WeatherriskApiDataProps[], 
