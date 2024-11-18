@@ -113,11 +113,11 @@ export default function Page() {
             <div className={styles.footer}>
                 <div className={styles.left}></div>
                 <div className={styles.center}>
-                    <WeatherPlotGraph
+                    {/* <WeatherPlotGraph
                         locationName="高雄市"
                         color="white"
                         feature="chanceOfRain"
-                    />
+                    /> */}
                 </div>
                 <div className={styles.right}>
                     <p>#Shiro</p>
