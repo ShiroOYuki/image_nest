@@ -32,39 +32,40 @@ function extractData(data: WeatherElementProps): number[] {
     return res;
 }
 
-export function weatherDataFactory(data: ApiResponse) {
+interface ResultProps {
+    name: string;
+    color: string;
+    data: number[];
+};
+
+export function weatherDataFactory(data: ApiResponse): ResultProps[] {
     const records = data.records.location[0].weatherElement;
 
-    interface ResultProps {
-        name: string | null;
-        color: string | null;
-        data: number[] | null;
-    };
-
-    const result: ResultProps = {
-        name: null,
-        color: null,
-        data: null
-    };
-    
-    for (const record of records) {
-
-        switch (record) {
+    const results: ResultProps[] = records.reduce((prev, curr) => {
+        const result: ResultProps = {
+            name: curr.elementName,
+            color: "white",
+            data: []
+        }
+        switch (curr.elementName) {
             case "MinT":
                 result.color = "blue";
-                result.data = extractData(weatherElement);
+                result.data = extractData(curr);
                 break;
             case "MaxT":
                 result.color = "red";
-                result.data = extractData(weatherElement);
+                result.data = extractData(curr);
                 break;
             case "Pop":
                 result.color = "blue";
-                result.data = extractData(weatherElement);
+                result.data = extractData(curr);
                 break;
             default:
                 break;
         }
-    }
-    return result;
+        prev.push(result);
+        return prev;
+    }, [] as ResultProps[]);
+
+    return results;
 }

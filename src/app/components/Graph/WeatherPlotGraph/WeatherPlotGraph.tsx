@@ -3,6 +3,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { PlotGraphProps } from "../PlotVariables";
 import PlotGraph from "../PlotGraph/PlotGraph";
+import { weatherDataFactory } from "@/app/utils/weatherPlotHelper";
 
 interface ApiProps {
     locationName?: string;
@@ -23,8 +24,11 @@ async function fetchData(
 
         if (!resp.ok) throw new Error("Fetching data error.");
         const data = await resp.json();
+        const processedData = weatherDataFactory(data);
         console.log(data);
-        setData([parseInt(data["records"]["location"][0]["weatherElement"][0]["time"][0]["parameter"]["parameterName"]), 30, 32, 40, 8, 7, 6, 5]);
+        console.log(processedData);
+
+        setData(processedData[0].data);
         setLoading(false);
     }
     catch (e: any) {

@@ -113,7 +113,13 @@ export default function Page() {
             <div className={styles.footer}>
                 <div className={styles.left}></div>
                 <div className={styles.center}>
-                    <WeatherPlotFactory locationName="高雄市" feature="temperature" color="white"/>
+                    <WeatherPlotFactory 
+                        locationName="高雄市" 
+                        feature="temperature" 
+                        color="white"
+                        timeFrom="2024-11-18T00:00:00"
+                        timeTo="2024-11-19T18:00:00"
+                    />
                 </div>
                 <div className={styles.right}>
                     <p>#Shiro</p>
