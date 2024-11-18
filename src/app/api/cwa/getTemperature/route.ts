@@ -1,3 +1,4 @@
+import { WeatherriskApiResponseProps } from "@/app/utils/interfaces/api/weatherrisk";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -38,8 +39,8 @@ export async function GET(request: NextRequest) {
 
         if (!resp.ok) throw new Error(`[Server] Fetching Error: ${URL}`);
 
-        const data = await resp.json();
-        return NextResponse.json(data);
+        const data: WeatherriskApiResponseProps = await resp.json();
+        return NextResponse.json(data.data);
     }
     catch (e: any) {
         console.error(`[Server] Error: ${e}`);

@@ -9,7 +9,7 @@ import styles from "./page.module.css";
 import mixinStyles from "@/app/shared/styles/mixin.module.css";
 
 import { useRouter } from "next/navigation";
-import { WeatherPlotFactory } from "./components/Graph/WeatherPlotGraph/WeatherPlotGraph";
+import { WeatherPlotGraph } from "./components/Graph/WeatherPlotGraph/WeatherPlotGraph";
 
 export default function Page() {
     const router = useRouter();
@@ -113,12 +113,10 @@ export default function Page() {
             <div className={styles.footer}>
                 <div className={styles.left}></div>
                 <div className={styles.center}>
-                    <WeatherPlotFactory 
-                        locationName="高雄市" 
-                        feature="temperature" 
+                    <WeatherPlotGraph
+                        locationName="高雄市"
                         color="white"
-                        timeFrom="2024-11-18T00:00:00"
-                        timeTo="2024-11-19T18:00:00"
+                        feature="chanceOfRain"
                     />
                 </div>
                 <div className={styles.right}>

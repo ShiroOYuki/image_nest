@@ -4,31 +4,26 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { PlotGraphProps } from "../PlotVariables";
 import PlotGraph from "../PlotGraph/PlotGraph";
 import { weatherDataFactory } from "@/app/utils/weatherPlotHelper";
-
-interface ApiProps {
-    locationName?: string;
-    elementName?: string;
-    timeFrom?: string;
-    timeTo?: string;
-}
+import { DataFeature, WeatherriskApiDataProps, WeatherriskApiRequestProps } from "@/app/utils/interfaces/api/weatherrisk";
 
 async function fetchData(
     setData: Dispatch<SetStateAction<number[]>>,
     setLoading: Dispatch<SetStateAction<boolean>>,
     setIsError: Dispatch<SetStateAction<boolean>>,
-    props: ApiProps
+    props: WeatherriskApiRequestProps,
+    feature: DataFeature
 ) {
     try {
-        const payload = new URLSearchParams(props as Record<string, string>);
-        const resp = await fetch(`/api/cwa/getTemperature?${payload}`, {method: "GET"});
+        const payload = new URLSearchParams(Object.entries(props));
+        const resp = await fetch(`/api/weatherrisk/getTemperature?${payload}`, {method: "GET"});
 
         if (!resp.ok) throw new Error("Fetching data error.");
-        const data = await resp.json();
-        const processedData = weatherDataFactory(data);
+        const data: WeatherriskApiDataProps[] = await resp.json();
+        const processedData = weatherDataFactory(data, feature);
         console.log(data);
         console.log(processedData);
 
-        setData(processedData[0].data);
+        setData(processedData);
         setLoading(false);
     }
     catch (e: any) {
@@ -39,53 +34,16 @@ async function fetchData(
 
 type DefaultPlotProps = Pick<PlotGraphProps, "color" | "padding">;
 
-interface WeatherPlotProps extends DefaultPlotProps, ApiProps {};
-
-interface FactoryProps extends 
-    DefaultPlotProps, 
-    Pick<ApiProps, "locationName" | "timeFrom" | "timeTo"> {
-    feature: "temperature" | "chanceOfRain";
+interface WeatherPlotProps extends DefaultPlotProps {
+    locationName: string;
+    feature?: DataFeature;
 };
 
-export function WeatherPlotFactory ({
-    padding=10,
-    color="red",
-    locationName="",
-    timeFrom="",
-    timeTo="",
-    feature="temperature"
-}: FactoryProps) {
-    switch (feature) {
-        case "temperature":
-            return <WeatherPlotGraph
-                padding={padding}
-                color={color} 
-                locationName={locationName}
-                timeFrom={timeFrom}
-                timeTo={timeTo}
-                elementName="MinT,MaxT"
-            />
-        case "chanceOfRain":
-            return <WeatherPlotGraph
-                padding={padding}
-                color={color} 
-                locationName={locationName}
-                timeFrom={timeFrom}
-                timeTo={timeTo}
-                elementName="Pop"
-            />
-        default:
-            return <></>
-    }
-}
-
 export function WeatherPlotGraph({
+    locationName,
     padding=10,
     color="red",
-    locationName="",
-    elementName="",
-    timeFrom="",
-    timeTo=""
+    feature="temperature"
 }: WeatherPlotProps) {
     const [data, setData] = useState<number[]>([]);
     const [loading, setLoading] = useState(true);
@@ -95,7 +53,8 @@ export function WeatherPlotGraph({
             setData, 
             setLoading, 
             setIsError, 
-            {locationName, elementName, timeFrom, timeTo}
+            { locationName: locationName },
+            feature=feature
         );
     }, []);
 
