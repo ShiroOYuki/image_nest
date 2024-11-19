@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { WeatherPlotGraph } from "./components/Graph/WeatherPlotGraph/WeatherPlotGraph";
 import { getLocation } from "./utils/utils";
 import { Coordinate } from "./utils/interfaces/api/weatherapi";
+import { WeatherCardFactory } from "./components/Cards/WeatherCard/WeatherCard";
 
 export default function Page() {
     const router = useRouter();
@@ -23,6 +24,7 @@ export default function Page() {
     const [changing, setchanging] = useState(false);
     const [location, setLocation] = useState<Coordinate>([0, 0]);
     const [loading, setLoading] = useState(true);
+    const [currT, setCurrT] = useState(0);
 
     useEffect(() => {
         // auto change background per 60s
@@ -96,7 +98,7 @@ export default function Page() {
                     {cryptoButton}
                 </div>
                 <div className={styles.center}>
-                    <Calender1></Calender1>
+                    <Calender1 />
                 </div>
                 <div className={styles.right}>
                     {changeImageButton}
@@ -122,12 +124,16 @@ export default function Page() {
             <div className={styles.footer}>
                 <div className={styles.left}></div>
                 <div className={styles.center}>
-                    {/* <WeatherPlotGraph
-                        color="white"
-                        feature="temperature"
-                        days={1}
+                    <WeatherCardFactory 
+                        type="temperature"
                         coordinate={location}
-                    /> */}
+                        days={1}
+                    />
+                    <WeatherCardFactory 
+                        type="chanceOfRain"
+                        coordinate={location}
+                        days={1}
+                    />
                 </div>
                 <div className={styles.right}>
                     <p>#Shiro</p>

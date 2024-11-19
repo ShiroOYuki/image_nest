@@ -1,0 +1,66 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    height: 180px;
+    overflow: hidden;
+}
+
+.container * {
+    user-select: none;
+}
+
+.info {
+    margin: 8px;
+}
+
+.location {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.locationIcon {
+    margin-left: 4px;
+}
+
+.location > span {
+    font-size: 0.8rem;
+    color: white;
+}
+
+/* title */
+
+.title {
+    margin-top: 8px;
+    position: relative;
+    font-size: 5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.popTitle::after {
+    content: "%";
+    font-size: 1rem;
+}
+
+.temperatureTitle::after {
+    content: "°C";
+    font-size: 1rem;
+    top: 1rem;
+    position: absolute;
+}
+
+/* graph */
+
+.graphContainer {
+    object-fit: contain;
+    flex: 1;
+    overflow: hidden;
+}
+
+.graphContainer > div {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}

@@ -18,6 +18,7 @@ export interface Location {
 }
 
 export interface Current {
+    chance_of_rain: number;
     last_updated: string;
     temp_c: number;
     condition: Condition;
@@ -37,12 +38,12 @@ export interface ForecastDayAnalysis {
 }
 
 export interface ForecastHour {
+    chance_of_rain: number;
     time: string;
     temp_c: number;
     condition: Condition;
     precip_mm: number;
     feelslike_c: number;
-    chance_of_rain: number;
     [key: string]: any;
 }
 
@@ -74,5 +75,8 @@ export type DataFeature = (
     "temperature" | 
     "currentTemperature" | 
     "chanceOfRain" | 
-    "currentChanceOfRain"
+    "currentChanceOfRain" |
+    "dailyChanceOfRain" |
+    "location" |
+    "updateTime"
 );
