@@ -29,7 +29,8 @@ export async function GET(request: NextRequest) {
         const payload = new URLSearchParams({
             key: apiKey,
             q: coordinate,
-            days: days
+            days: days,
+            lang: "	zh_tw"
         });
 
         const resp = await fetch(`${URL}?${payload}`, { headers: headers });
