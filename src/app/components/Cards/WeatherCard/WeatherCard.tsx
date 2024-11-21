@@ -51,8 +51,6 @@ export function WeatherCardFactory({
     }, []);
 
     if (loading) return <p>Loading...</p>;
-
-    console.log(weatherData);
     
     let data = [2, 2];
     let title: string | number = "--";
@@ -72,7 +70,6 @@ export function WeatherCardFactory({
                 type={type}
                 data={data}
                 title={title}
-                updateTime={updateTime.split(" ")[1]}
                 locationCity={location[0]}
                 locationRegion={location[1]}
             />
@@ -90,7 +87,6 @@ export function WeatherCardFactory({
                 type={type}
                 data={data}
                 title={title}
-                updateTime={updateTime.split(" ")[1]}
                 locationCity={location[0]}
                 locationRegion={location[1]}
             />
@@ -101,7 +97,6 @@ interface WeatherCardProps extends PlotGraphProps, CardType {
     title?: string | number;
     locationCity?: string;
     locationRegion?: string;
-    updateTime?:string;
     iconColor?: "white" | "black";
 }
 
@@ -117,7 +112,6 @@ function WeatherCard({
     title="0",
     locationCity="",
     locationRegion="",
-    updateTime="",
     iconColor="white",
     padding=10,
     color="white"
@@ -139,11 +133,7 @@ function WeatherCard({
                             svg.setAttribute("height", "16");
                         }}
                     />
-                    {/* <span>{locationCity}</span>
-                    <span>-</span> */}
                     <span>{locationRegion}</span>
-                    <span>|</span>
-                    <span>{updateTime}</span>
                 </div>
                 {titleRow}
             </div>
