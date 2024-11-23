@@ -1,8 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import styles from "./Clock1.module.css"
-import mixinStyles from "@/app/shared/styles/mixin.module.css";
+import styles from "./Clock1.module.css";
 
 function getTime(): string[] {
     const d = new Date();
