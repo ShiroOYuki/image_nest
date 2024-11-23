@@ -13,7 +13,7 @@ export function getLocation(): Coordinate {
         coordinate = [crd.latitude, crd.longitude];
     }
     
-    function error(err: GeolocationPositionError) {
+    function error() {
         console.warn("Get location failed. Use default coordinate: [22.633, 120.35]");
     }
 

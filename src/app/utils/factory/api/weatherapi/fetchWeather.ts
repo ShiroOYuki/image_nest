@@ -1,6 +1,5 @@
-import { DataFeature, Forecast, ForecastRequiredProps } from "@/app/utils/interfaces/api/weatherapi";
+import { Forecast, ForecastRequiredProps } from "@/app/utils/interfaces/api/weatherapi";
 import { Dispatch, SetStateAction } from "react";
-import { weatherDataFactory } from "./weatherHelper";
 
 export async function fetchData(
     setData: Dispatch<SetStateAction<Forecast | null>>,

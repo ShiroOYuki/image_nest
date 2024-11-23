@@ -3,7 +3,6 @@ import '@/app/shared/styles/global.css'
 
 import './page.css'
 import styles from './layout.module.css'
-import mixinStyles from '@/app/shared/styles/mixin.module.css'
 
 export default function RootLayout({
     children

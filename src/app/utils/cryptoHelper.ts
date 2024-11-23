@@ -8,10 +8,11 @@ export function makeTexts(data: Historical[]) {
         
         for (const key in item.quotes) {
             const price = item.quotes[key].quote.USD.price;
-            texts.push(createElement("p", {
-                key: `${item.name}_${key}`,
-                children: price
-            }));
+            texts.push(createElement(
+                "p", 
+                { key: `${item.name}_${key}` },
+                price
+            ));
         }
     } 
     return texts;

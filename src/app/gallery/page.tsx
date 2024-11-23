@@ -1,13 +1,9 @@
-import ImageBox from "@/app/components/ImageBox/ImageBox"
+
 import LinkedImage from "@/app/components/LinkedImage/LinkedImage"
 import ImageCard from "@/app/components/Cards/ImageCard/ImageCard"
 import HorizonalContainer from "@/app/components/Containers/HorizonalContainer/HorizonalContainer"
 
-export default function Page({
-    params
-}: {
-    params: {lang: string}
-}) {
+export default function Page() {
     return <>
         <HorizonalContainer>
             <ImageCard 

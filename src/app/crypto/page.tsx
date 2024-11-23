@@ -39,7 +39,7 @@ export default function Page() {
 
     if (!data) return <div>No data available.</div>;
 
-    const container = createElement("div", {children: makeTexts(data)});
+    // const container = createElement("div", makeTexts(data));
     const prices = extractPrice(data);
 
     return (
