@@ -1,4 +1,4 @@
-import { Forecast, DataFeature, ForecastDay, ForecastHour } from "@/app/utils/interfaces/api/weatherapi";
+import { Forecast, DataFeature, ForecastHour } from "@/app/utils/interfaces/api/weatherapi";
 
 export function weatherDataFactory(data: Forecast | null, feature: DataFeature): number[] | number | string[] | string | null {
     if (!data) return null;

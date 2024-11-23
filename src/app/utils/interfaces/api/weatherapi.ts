@@ -2,7 +2,6 @@
 
 interface Condition {
     text: string;
-    [conditionKey: string]: any;
 }
 
 export interface Location {
@@ -14,7 +13,6 @@ export interface Location {
     tz_id: string;
     localtime_epoch: number;
     localtime: string;
-    [key: string]: any;
 }
 
 export interface Current {
@@ -24,7 +22,6 @@ export interface Current {
     condition: Condition;
     precip_mm: number;
     feelslike_c: number;
-    [key: string]: any;
 }
 
 export interface ForecastDayAnalysis {
@@ -34,7 +31,6 @@ export interface ForecastDayAnalysis {
     totalprecip_mm: number;
     daily_chance_of_rain: number;
     condition: Condition;
-    [key: string]: any;
 }
 
 export interface ForecastHour {
@@ -44,14 +40,12 @@ export interface ForecastHour {
     condition: Condition;
     precip_mm: number;
     feelslike_c: number;
-    [key: string]: any;
 }
 
 export interface ForecastDay {
     date: string;
     day: ForecastDayAnalysis;
     hour: ForecastHour[];
-    [key: string]: any;
 }
 
 export interface Forecast {
