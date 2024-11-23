@@ -23,4 +23,24 @@
     --font-title: var(--font-l);
     --font-small-title: var(--font-m);
     --font-desc: var(--font-s);
+
+    --font-1: 0.5rem;
+    --font-2: 0.8rem;
+    --font-3: 1rem;
+    --font-4: 1.2rem;
+    --font-5: 1.5rem;
+    --font-6: 3rem;
+    --font-7: 5rem;
+    --font-8: 10rem;
+
+    /* colors */
+    --color-red: #d0104c;
+    --color-blue: #58b2dc;
+    --color-green: #86C166;
+    --color-dark-green: #24936E;
+    --color-yellow: #F7C242;
+    --color-gold: #FFB11B;
+    --color-dark: #1e1e1e;
+    --color-black: #000;
+    --color-white: #fff;
 }

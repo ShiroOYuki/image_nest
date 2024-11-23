@@ -9,7 +9,6 @@ import styles from "./page.module.css";
 import mixinStyles from "@/app/shared/styles/mixin.module.css";
 
 import { useRouter } from "next/navigation";
-import { WeatherPlotGraph } from "./components/Graph/WeatherPlotGraph/WeatherPlotGraph";
 import { getLocation } from "./utils/utils";
 import { Coordinate } from "./utils/interfaces/api/weatherapi";
 import { WeatherCardFactory } from "./components/Cards/WeatherCard/WeatherCard";
@@ -24,7 +23,6 @@ export default function Page() {
     const [changing, setchanging] = useState(false);
     const [location, setLocation] = useState<Coordinate>([0, 0]);
     const [loading, setLoading] = useState(true);
-    const [currT, setCurrT] = useState(0);
 
     useEffect(() => {
         // auto change background per 60s
