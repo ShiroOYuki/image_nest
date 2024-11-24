@@ -2,7 +2,6 @@
 
 import styles from "./GlassIconButton.module.css";
 import mixinStyles from "@/app/shared/styles/mixin.module.css";
-import { useState } from "react";
 import { ReactSVG } from 'react-svg';
 
 export default function GlassIconButton({
