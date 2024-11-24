@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect, useRef } from 'react';
 import ImageBox from '../../ImageBox/ImageBox';
 import styles from './ImageCard.module.css';
 import ScrollXContainer from '../../Containers/ScrollXContainer/ScrollXContainer';
 
 import mixinStyles from '@/app/shared/styles/mixin.module.css';
+import Image from 'next/image';
 
 
 
@@ -37,7 +37,7 @@ export default function ImageCard({
             </div>
             <div className={styles.footer}>
                 <div className={styles.author}>
-                    <img className={styles.icon} src={authorIcon}></img>
+                    <Image className={styles.icon} src={authorIcon} alt="" />
                     <p className={styles.name}>{authorName}</p>
                 </div>
             </div>

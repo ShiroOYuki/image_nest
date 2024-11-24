@@ -1,6 +1,6 @@
 'use client'
 
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { PlotGraphProps } from "../PlotVariables";
 import PlotGraph from "../PlotGraph/PlotGraph";
 import { DataFeature, Forecast, ForecastRequiredProps } from "@/app/utils/interfaces/api/weatherapi";

@@ -3,13 +3,13 @@ import { NextResponse } from "next/server";
 export interface Historical {
     id: number;
     name: string;
-    quote: {
-        USD: {
-            price: number;
-            [key: string]: any;
-        }
-    };
-    [key: string]: any;
+    quotes: {
+        quote: {
+            USD: {
+                price: number;
+            }
+        };
+    }[];
 }
 
 export async function GET() {
@@ -38,8 +38,13 @@ export async function GET() {
         const data = await resp.json();
         return NextResponse.json(data.data);
     }
-    catch (e: any) {
-        console.error(e);
-        return NextResponse.json({ error: e.message }, { status: 500 });
+    catch (e: unknown) {
+        if (e instanceof Error) {
+            console.error(`[Server] Error: ${e.message}`);
+            return NextResponse.json({ error: e.message }, { status: 500 });
+        }
+        else {
+            return NextResponse.json({ error: "Unknown error." }, { status: 500 });
+        }
     }
 }

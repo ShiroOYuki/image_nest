@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import styles from './ImageBox.module.css'
 import mixinStyles from '@/app/shared/styles/mixin.module.css'
 
@@ -10,7 +11,7 @@ export default function ImageBox({
 }) {
     return (
         <div className={styles.imagebox}>
-            <img src={src} alt={placeholder} className={`${styles.image} ${mixinStyles.rounded}`} />
+            <Image src={src} alt={placeholder} className={`${styles.image} ${mixinStyles.rounded}`} />
         </div>
     )
 }

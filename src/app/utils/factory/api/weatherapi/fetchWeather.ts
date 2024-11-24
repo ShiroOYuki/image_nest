@@ -18,9 +18,11 @@ export async function fetchData(
         if (setLoading) setLoading(false);
         
     }
-    catch (e: any) {
-        console.log(e.message);
+    catch (e: unknown) {
+        if (e instanceof Error) {
+            console.log(e.message);
+            if (setIsError) setIsError(true);
+        }
         if (setLoading) setLoading(false);
-        if (setIsError) setIsError(true);
     }
 }

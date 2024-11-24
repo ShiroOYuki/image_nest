@@ -35,10 +35,6 @@ export default function PlotGraph({
         return `linear-gradient-${Date.now()}-${Math.random()}`
     }, []);
 
-    const gradientLineId = useMemo(() => {
-        return `linear-gradient-${Date.now()}-${Math.random()}`
-    }, []);
-
     useEffect(() => {
         setPoints(calcPoints(data, padding));
     }, [data]);

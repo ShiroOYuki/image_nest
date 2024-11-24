@@ -1,11 +1,12 @@
 'use client'
-import { createElement, Dispatch, SetStateAction, useEffect, useState } from "react"
-import { extractPrice, makeTexts } from "@/app/utils/cryptoHelper";
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { extractPrice } from "@/app/utils/cryptoHelper";
 import PlotGraph from "../components/Graph/PlotGraph/PlotGraph";
+import { Historical } from "../api/getCryptoData/route";
 
 
 async function fetchData(
-    setData: Dispatch<SetStateAction<any>>, 
+    setData: Dispatch<SetStateAction<Historical[]>>, 
     setLoading: Dispatch<SetStateAction<boolean>>, 
     setError: Dispatch<SetStateAction<string | null>>
 ) {
@@ -16,15 +17,16 @@ async function fetchData(
         }
         const data = await resp.json();
         setData(Object.values(data));
-    } catch (e: any) {
-        setError(e.message);
+    } catch (e: unknown) {
+        if (e instanceof Error) setError(e.message);
+        else setError('An unexpected error occurred');
     } finally {
         setLoading(false);
     }
 }
 
 export default function Page() {
-    const [data, setData] = useState<any>(null);
+    const [data, setData] = useState<Historical[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 

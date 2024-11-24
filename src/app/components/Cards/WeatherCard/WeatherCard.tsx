@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react"
 import styles from "./WeatherCard.module.css"
-import mixinStyles from "@/app/shared/styles/mixin.module.css"
 import { ReactSVG } from "react-svg";
-import { WeatherPlotGraph, WeatherPlotProps } from "../../Graph/WeatherPlotGraph/WeatherPlotGraph";
-import { Coordinate, Forecast, ForecastRequiredProps } from "@/app/utils/interfaces/api/weatherapi";
+import { Forecast, ForecastRequiredProps } from "@/app/utils/interfaces/api/weatherapi";
 import { fetchData } from "@/app/utils/factory/api/weatherapi/fetchWeather";
 import { weatherDataFactory } from "@/app/utils/factory/api/weatherapi/weatherHelper";
 import { PlotGraphProps } from "../../Graph/PlotVariables";
@@ -55,14 +53,12 @@ export function WeatherCardFactory({
     let data = [2, 2];
     let title: string | number = "--";
     let location = ["???", "???"];
-    let updateTime = "--:--";
 
     switch(type) {
         case "temperature":
             if (!isError) {
                 data = weatherDataFactory(weatherData, "temperature") as number[];
                 title = Math.round(weatherDataFactory(weatherData, "currentTemperature") as number);
-                updateTime = weatherDataFactory(weatherData, "updateTime") as string;
                 location = weatherDataFactory(weatherData, "location") as string[];
             }
             
@@ -78,7 +74,6 @@ export function WeatherCardFactory({
             if (!isError) {
                 data = weatherDataFactory(weatherData, "chanceOfRain") as number[];
                 title = Math.round(weatherDataFactory(weatherData, "dailyChanceOfRain") as number);
-                updateTime = weatherDataFactory(weatherData, "updateTime") as string;
                 location = weatherDataFactory(weatherData, "location") as string[];
             } 
 
@@ -110,7 +105,6 @@ function WeatherCard({
     data,
     type="default",
     title="0",
-    locationCity="",
     locationRegion="",
     iconColor="white",
     padding=10,
