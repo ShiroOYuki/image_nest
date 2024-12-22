@@ -14,24 +14,24 @@
 
 
     /* font sizes */
-    --font-xs: 0.8rem;
-    --font-s: 1rem;
-    --font-m: 1.5rem;
-    --font-l: 2rem;
-    --font-xl: 3rem;
+    --font-xs: 12px; /* 0.8rem */
+    --font-s: 16px; /* 1rem */
+    --font-m: 24px; /* 1.5rem */
+    --font-l: 32px; /* 2rem */
+    --font-xl: 48px; /* 3rem */
 
-    --font-title: var(--font-l);
-    --font-small-title: var(--font-m);
-    --font-desc: var(--font-s);
+    --font-title: var(--font-l); /* 32px */
+    --font-small-title: var(--font-m); /* 24px */
+    --font-desc: var(--font-s); /* 16px */
 
-    --font-1: 0.5rem;
-    --font-2: 0.8rem;
-    --font-3: 1rem;
-    --font-4: 1.2rem;
-    --font-5: 1.5rem;
-    --font-6: 3rem;
-    --font-7: 5rem;
-    --font-8: 10rem;
+    --font-1: 8px; /* 0.5rem */
+    --font-2: 12px; /* 0.8rem */
+    --font-3: 16px; /* 1rem */
+    --font-4: 20px; /* 1.2rem */
+    --font-5: 24px; /* 1.5rem */
+    --font-6: 48px; /* 3rem */
+    --font-7: 80px; /* 5rem */
+    --font-8: 160px; /* 10rem */
 
     /* colors */
     --color-red: #d0104c;
