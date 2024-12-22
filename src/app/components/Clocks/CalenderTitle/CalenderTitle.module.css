@@ -1,0 +1,11 @@
+.container * {
+    color: var(--font-color-default);
+}
+
+.location {
+    font-size: var(--font-l);
+}
+
+.datetime {
+    font-size: var(--font-s);
+}

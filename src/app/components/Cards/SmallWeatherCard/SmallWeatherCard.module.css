@@ -1,0 +1,34 @@
+.container {
+    display: inline-flex;
+    padding: 0px 16px;
+    align-items: center;
+    gap: 8px;
+}
+
+.container * {
+    color: var(--font-color-default);
+}
+
+.left {
+    width: 60px;
+    text-align: center;
+}
+
+.icon {
+    stroke: var(--font-color-default);
+}
+
+.temp {
+    font-size: var(--font-xxl);
+    font-weight: bold;
+}
+
+.weatherType {
+    font-weight: bold;
+}
+
+.weatherType::first-letter {
+    text-transform: uppercase;
+}
+
+

@@ -68,7 +68,7 @@ export default function Page() {
             width={50}
             height={50}
             src="/imgs/icons/chart-line.svg"
-            onClick={() => router.push("/crypto")}
+            onClick={() => router.push("/weather")}
             className={styles.linkBtn}
             stroke="white"
         ></GlassIconButton>

@@ -19,6 +19,7 @@
     --font-m: 24px; /* 1.5rem */
     --font-l: 32px; /* 2rem */
     --font-xl: 48px; /* 3rem */
+    --font-xxl: 96px;
 
     --font-title: var(--font-l); /* 32px */
     --font-small-title: var(--font-m); /* 24px */
@@ -43,4 +44,6 @@
     --color-dark: #1e1e1e;
     --color-black: #000;
     --color-white: #fff;
+
+    --font-color-default: #FAF7F0;
 }
