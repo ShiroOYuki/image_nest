@@ -37,12 +37,14 @@ export default function MinMaxAvgTempPlot({
             const rect = PlotRef.current.getBoundingClientRect();
             const x = event.clientX - rect.left; // 滑鼠相對於元素的 X 座標
             const y = event.clientY - rect.top;  // 滑鼠相對於元素的 Y 座標
+            const idx = Math.min(minTemps.length-1, Math.round(x/(rect.width/minTemps.length-1/2)-1));
+            
             console.log(
-                minTemps[Math.round(x/(rect.right/minTemps.length))],
+                minTemps[idx],
                 "-",
-                avgTemps[Math.round(x/(rect.right/minTemps.length))],
+                avgTemps[idx],
                 "-",
-                maxTemps[Math.round(x/(rect.right/minTemps.length))]
+                maxTemps[idx]
             );
         }
         };

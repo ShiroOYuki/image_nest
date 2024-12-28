@@ -25,9 +25,9 @@ export default function WeatherPage() {
             <SmallWeatherCard weather="snow" temp="16°" />
             <MinMaxAvgTempPlot
                 className={styles.tempChart}
-                minTemps={[10, 12, 13, 15, 17, 18, 17, 11, 10, 10, 12, 13, 15, 17, 18, 17, 11, 10, 10, 12, 13, 15, 17, 18, 17, 11, 10]}
-                avgTemps={[13, 13, 14, 18, 20, 19, 18, 15, 13, 13, 13, 14, 18, 20, 19, 18, 15, 13, 13, 13, 14, 18, 20, 19, 18, 15, 13]}
-                maxTemps={[15, 14, 17, 19, 21, 20, 19, 20, 15, 15, 14, 17, 19, 21, 20, 19, 20, 15, 15, 14, 17, 19, 21, 20, 19, 20, 15]}
+                minTemps={[1, 2, 1, 2, 1]}
+                avgTemps={[10, 20, 10, 20, 10]}
+                maxTemps={[11, 22, 11, 22, 11]}
             />
             <div className={styles.row}>
                 <WeatherDetailCard
