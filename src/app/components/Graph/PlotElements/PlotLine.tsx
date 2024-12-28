@@ -1,12 +1,19 @@
 import { calcPoints } from "@/app/utils/svgTools";
 import { colorCode, PlotGraphProps } from "../PlotVariables";
 
+interface PlotLineProps extends PlotGraphProps {
+    upperBound?: number;
+    lowerBound?: number;
+}
+
 export default function PlotLine({
     data,
     padding=0,
-    color="red"
-}: PlotGraphProps) {
-    const points = calcPoints(data, padding);
+    color="red",
+    upperBound,
+    lowerBound
+}: PlotLineProps) {
+    const points = calcPoints(data, padding, upperBound, lowerBound);
     return (
         <polyline 
             points={points} 

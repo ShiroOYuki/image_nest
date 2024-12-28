@@ -4,3 +4,7 @@
     background: linear-gradient(0deg, var(--color-black) 0%, #0000 100%);
     flex: 1;
 }
+
+.tempChart {
+    height: 300px;
+}

@@ -4,6 +4,7 @@ import SmallWeatherCard from "../components/Cards/SmallWeatherCard/SmallWeatherC
 import WeatherDetailCard from "../components/Cards/WeatherDetailCard/WeatherDetailCard";
 import CalenderTitle from "../components/Clocks/CalenderTitle/CalenderTitle";
 import BackgroundContainer from "../components/Containers/BackgroundContainer/BackgroundContainer";
+import MinMaxAvgTempPlot from "../components/Graph/MinMaxAvgTempPlot/MinMaxAvgTempPlot";
 import styles from "./weatherPage.module.css";
 
 export default function WeatherPage() {
@@ -22,6 +23,12 @@ export default function WeatherPage() {
             <SmallWeatherCard weather="clear" temp="16°" />
             <SmallWeatherCard weather="cloudy" temp="16°" />
             <SmallWeatherCard weather="snow" temp="16°" />
+            <MinMaxAvgTempPlot
+                className={styles.tempChart}
+                minTemps={[10, 12, 13, 15, 17, 18, 17, 11, 10, 10, 12, 13, 15, 17, 18, 17, 11, 10, 10, 12, 13, 15, 17, 18, 17, 11, 10]}
+                avgTemps={[13, 13, 14, 18, 20, 19, 18, 15, 13, 13, 13, 14, 18, 20, 19, 18, 15, 13, 13, 13, 14, 18, 20, 19, 18, 15, 13]}
+                maxTemps={[15, 14, 17, 19, 21, 20, 19, 20, 15, 15, 14, 17, 19, 21, 20, 19, 20, 15, 15, 14, 17, 19, 21, 20, 19, 20, 15]}
+            />
             <div className={styles.row}>
                 <WeatherDetailCard
                     time="03:00"

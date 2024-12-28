@@ -1,8 +1,8 @@
 export const colorCode = {
     red: "#D0104C",
-    green: "#90B44B",
-    blue: "#58B2DC",
-    white: "#FFFFFF"
+    green: "#86C166",
+    blue: "#7AB2D3",
+    white: "#FAF7F0"
 };
 
 export type Colors = keyof typeof colorCode;

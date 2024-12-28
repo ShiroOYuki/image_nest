@@ -2,28 +2,9 @@
 
 import { useEffect, useMemo, useState } from "react";
 import styles from "./PlotGraph.module.css";
-import { colorCode, Colors, PlotGraphProps } from "../PlotVariables";
+import { colorCode, PlotGraphProps } from "../PlotVariables";
 import { calcPoints } from "@/app/utils/svgTools";
-
-
-interface LinearGradientProps {
-    gradientId: string;
-    color: Colors;
-}
-
-export function LinearGradientFactory({
-    gradientId,
-    color="red"
-}: LinearGradientProps) {
-    return (
-        <defs>
-            <linearGradient id={gradientId} x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor={colorCode[color]} stopOpacity="0.3" />
-                <stop offset="100%" stopColor={colorCode[color]} stopOpacity="0" />
-            </linearGradient>
-        </defs>
-    );
-}
+import { LinearGradient } from "../PlotElements/LinearGradient";
 
 export default function PlotGraph({
     data,  
@@ -46,7 +27,7 @@ export default function PlotGraph({
             xmlns="http://www.w3.org/2000/svg"
             preserveAspectRatio="none"              // 把內容拉伸，使其大小符合父容器
         >
-            <LinearGradientFactory gradientId={gradientId} color={color} />
+            <LinearGradient gradientId={gradientId} color={color} />
             <polygon 
                 points={points + "100,100 0,100"}
                 fill={`url(#${gradientId})`}
