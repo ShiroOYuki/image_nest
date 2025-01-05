@@ -6,6 +6,7 @@ import PlotLine from "../PlotElements/PlotLine";
 import { LinearGradient } from "../PlotElements/LinearGradient";
 import { useEffect, useRef, useState } from "react";
 import {v4 as uuid} from "uuid";
+import { colorCode } from "../PlotVariables";
 
 interface MinMaxAvgTempPlotProps {
     minTemps: number[];
@@ -24,28 +25,28 @@ export default function MinMaxAvgTempPlot({
     
     const [blueGradientId, setBlueGradientId] = useState("");
     const [redGradientId, setRedGradientId] = useState("");
-    
-    const [loading, setLoading] = useState(true);
+
+    const [linePos, setLinePos] = useState([0, 0, 0]);
 
     useEffect(() => {
         setBlueGradientId(uuid());
         setRedGradientId(uuid());
-        setLoading(false);
 
         const handleMouseMove = (event: MouseEvent) => {
         if (PlotRef.current) {
             const rect = PlotRef.current.getBoundingClientRect();
             const x = event.clientX - rect.left; // 滑鼠相對於元素的 X 座標
             const y = event.clientY - rect.top;  // 滑鼠相對於元素的 Y 座標
-            const idx = Math.min(minTemps.length-1, Math.round(x/(rect.width/minTemps.length-1/2)-1));
+            const n = minTemps.length;
+            const space = rect.width / (n-1);
+            const idx = Math.ceil(Math.max(Math.min(x - space/2, rect.width), 0) / space)
             
-            console.log(
-                minTemps[idx],
-                "-",
-                avgTemps[idx],
-                "-",
-                maxTemps[idx]
-            );
+            
+            setLinePos([
+                Math.max(Math.min(idx*space/rect.width*100, 99), 1), 
+                0, 
+                rect.height
+            ]);
         }
         };
     
@@ -60,7 +61,7 @@ export default function MinMaxAvgTempPlot({
             }
         };
     }, []);
-    
+
     const padding = 10;
 
     const upperBound = Math.max(...maxTemps);
@@ -99,6 +100,16 @@ export default function MinMaxAvgTempPlot({
                 <PlotLine data={maxTemps} color="red" padding={padding} upperBound={upperBound} lowerBound={lowerBound}/>
                 <PlotLine data={avgTemps} color="white" padding={padding} upperBound={upperBound} lowerBound={lowerBound}/>
                 <PlotLine data={minTemps} color="blue" padding={padding} upperBound={upperBound} lowerBound={lowerBound}/>
+                
+                <line 
+                    x1={linePos[0]}
+                    y1={linePos[1]}
+                    x2={linePos[0]}
+                    y2={linePos[2]}
+                    strokeWidth={0.1}
+                    stroke={colorCode.white}
+                    strokeDasharray="1,1"
+                />
             </svg>
         </div>
     )
