@@ -1,7 +1,7 @@
 'use client'
 
 import { calcPoints } from "@/app/utils/svgTools";
-import styles from "./MinMaxAvgTempPlot.module.css";
+import styles from "./SingleHoverPlot.module.css";
 import PlotLine from "../PlotElements/PlotLine";
 import { LinearGradient } from "../PlotElements/LinearGradient";
 import { useEffect, useRef, useState } from "react";
@@ -9,26 +9,20 @@ import { v4 as uuid } from "uuid";
 import { colorCode } from "../PlotVariables";
 import { clamp } from "@/app/utils/utils";
 
-interface MinMaxAvgTempPlotProps {
-    minTemps: number[];
-    maxTemps: number[];
-    avgTemps: number[];
+interface SingleHoverPlotProps {
+    data: number[];
     className?: string;
-    onHoverTemperatureChange?: (temps: { 
-        min: number; 
-        max: number; 
-        avg: number; 
+    onHoverTemperatureChange?: (data: { 
+        data: number;
         timeIndex: number;
     }) => void;
 }
 
-export default function MinMaxAvgTempPlot({
-    minTemps,
-    maxTemps,
-    avgTemps,
+export default function SingleHoverPlot({
+    data,
     className = "",
     onHoverTemperatureChange
-}: MinMaxAvgTempPlotProps) {
+}: SingleHoverPlotProps) {
     const PlotRef = useRef<SVGSVGElement>(null);
     
     const [blueGradientId, setBlueGradientId] = useState("");
@@ -45,7 +39,7 @@ export default function MinMaxAvgTempPlot({
                 const rect = PlotRef.current.getBoundingClientRect();
                 const x = event.clientX - rect.left; // 滑鼠相對於元素的 X 座標
                 const y = event.clientY - rect.top;  // 滑鼠相對於元素的 Y 座標
-                const n = minTemps.length;
+                const n = data.length;
                 const space = rect.width / (n-1);
                 const idx = Math.ceil(clamp(x - space/2, 0, rect.width) / space);
                 
@@ -57,9 +51,7 @@ export default function MinMaxAvgTempPlot({
 
                 if (onHoverTemperatureChange) {
                     onHoverTemperatureChange({
-                        min: minTemps[idx],
-                        max: maxTemps[idx],
-                        avg: avgTemps[idx],
+                        data: data[idx],
                         timeIndex: idx,
                     });
                 }
@@ -80,15 +72,9 @@ export default function MinMaxAvgTempPlot({
 
     const padding = 10;
 
-    const upperBound = Math.max(...maxTemps);
-    const lowerBound = Math.min(...minTemps);
+    const dataPos = calcPoints(data, padding);
 
-    const minTempPos = calcPoints(minTemps, padding, upperBound, lowerBound);
-    const maxTempPos = calcPoints(maxTemps, padding, upperBound, lowerBound);
-    const avgTempPos = calcPoints(avgTemps, padding, upperBound, lowerBound).split(" ").reverse().join(" ");
-
-    const blueFillPos = `${minTempPos} ${avgTempPos}`;
-    const redFillPos = `${maxTempPos} ${avgTempPos}`;
+    const blueFillPos = `${dataPos} 100,100 0,100`;
 
     return (
         <div className={`${styles.container} ${className}`} >
@@ -100,21 +86,14 @@ export default function MinMaxAvgTempPlot({
                 preserveAspectRatio="none"              // 把內容拉伸，使其大小符合父容器
                 ref={PlotRef}
             >
-                <LinearGradient gradientId={blueGradientId} color="blue" reversed={false} />
-                <LinearGradient gradientId={redGradientId} color="red" reversed={true} />
+                <LinearGradient gradientId={blueGradientId} color="blue" reversed={true} />
                 
                 <polygon 
                     points={blueFillPos}
                     fill={`url(#${blueGradientId})`}
                 />
-                <polygon 
-                    points={redFillPos}
-                    fill={`url(#${redGradientId})`}
-                />
 
-                <PlotLine data={maxTemps} color="red" padding={padding} upperBound={upperBound} lowerBound={lowerBound}/>
-                <PlotLine data={avgTemps} color="white" padding={padding} upperBound={upperBound} lowerBound={lowerBound}/>
-                <PlotLine data={minTemps} color="blue" padding={padding} upperBound={upperBound} lowerBound={lowerBound}/>
+                <PlotLine data={data} color="blue" padding={padding} />
                 
                 <line 
                     x1={linePos[0]}

@@ -20,3 +20,7 @@ export function getLocation(): Coordinate {
     navigator.geolocation.getCurrentPosition(success, error, options);
     return coordinate;
 }
+
+export function clamp(value: number, min: number, max: number): number {
+    return Math.max(Math.min(value, max), min);
+}

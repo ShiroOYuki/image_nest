@@ -1,9 +1,20 @@
 import { Forecast, DataFeature, ForecastHour } from "@/app/utils/interfaces/api/weatherapi";
 
-export function weatherDataFactory(data: Forecast | null, feature: DataFeature): number[] | number | string[] | string | null {
-    if (!data) return null;
-    
-    const handlers: Record<DataFeature, () => number[] | number | string[] | string> = {
+type WeatherDataFeatureMap = {
+    temperature: number[];
+    currentTemperature: number;
+    chanceOfRain: number[];
+    currentChanceOfRain: number;
+    dailyChanceOfRain: number;
+    location: string[];
+    updateTime: string;
+};
+
+export function weatherDataFactory<K extends keyof WeatherDataFeatureMap>(
+    data: Forecast, 
+    feature: K
+): WeatherDataFeatureMap[K] {
+    const handlers: {[key in keyof WeatherDataFeatureMap]: () => WeatherDataFeatureMap[key]} = {
         temperature: () => extractTemperature(data),
         currentTemperature: () => extractCurrTemperature(data),
         chanceOfRain: () => extractPop(data),
@@ -13,7 +24,7 @@ export function weatherDataFactory(data: Forecast | null, feature: DataFeature):
         updateTime: () => extractUpdateTime(data)
     };
 
-    return handlers[feature]?.() ?? null;
+    return handlers[feature]?.();
 }
 
 function extractHourlyData(data: Forecast, key: keyof ForecastHour): number[] {
@@ -53,4 +64,25 @@ function extractLocation(data: Forecast): string[] {
 
 function extractUpdateTime(data: Forecast): string {
     return data.current.last_updated;
+}
+
+function extractMinMaxAvg(data: Forecast) {
+    let min: number[] = [];
+    let max: number[] = [];
+    let avg: number[] = [];
+    let date: string[] = [];
+    data.forecast.forecastday.forEach((day) => {
+        const eachDay = day.day;
+        min.push(eachDay.mintemp_c);
+        max.push(eachDay.maxtemp_c);
+        avg.push(eachDay.avgtemp_c);
+        date.push(day.date);
+    });
+    const forecastToday = data.forecast.forecastday[0];
+    return {
+        min: min,
+        max: max,
+        avg: avg,
+        data: data
+    }
 }
