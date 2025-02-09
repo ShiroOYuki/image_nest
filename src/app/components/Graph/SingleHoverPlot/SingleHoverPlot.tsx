@@ -25,10 +25,11 @@ export default function SingleHoverPlot({
 }: SingleHoverPlotProps) {
     const PlotRef = useRef<SVGSVGElement>(null);
     
-    const [blueGradientId, setBlueGradientId] = useState("");
+    const [gradientId, setBlueGradientId] = useState("");
     const [redGradientId, setRedGradientId] = useState("");
 
     const [linePos, setLinePos] = useState([0, 0, 0]);
+    const color = "white";
 
     useEffect(() => {
         setBlueGradientId(uuid());
@@ -74,7 +75,7 @@ export default function SingleHoverPlot({
 
     const dataPos = calcPoints(data, padding);
 
-    const blueFillPos = `${dataPos} 100,100 0,100`;
+    const fillPos = `${dataPos} 100,100 0,100`;
 
     return (
         <div className={`${styles.container} ${className}`} >
@@ -86,14 +87,14 @@ export default function SingleHoverPlot({
                 preserveAspectRatio="none"              // 把內容拉伸，使其大小符合父容器
                 ref={PlotRef}
             >
-                <LinearGradient gradientId={blueGradientId} color="blue" reversed={true} />
+                <LinearGradient gradientId={gradientId} color={color} reversed={true} />
                 
                 <polygon 
-                    points={blueFillPos}
-                    fill={`url(#${blueGradientId})`}
+                    points={fillPos}
+                    fill={`url(#${gradientId})`}
                 />
 
-                <PlotLine data={data} color="blue" padding={padding} />
+                <PlotLine data={data} color={color} padding={padding} />
                 
                 <line 
                     x1={linePos[0]}

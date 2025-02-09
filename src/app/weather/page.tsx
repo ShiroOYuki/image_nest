@@ -11,6 +11,7 @@ import { fetchData } from "../utils/factory/api/weatherapi/fetchWeather";
 import SingleHoverPlot from "../components/Graph/SingleHoverPlot/SingleHoverPlot";
 import { weatherDataFactory } from "../utils/factory/api/weatherapi/weatherHelper";
 import { getLocation } from "../utils/utils";
+import MinMaxAvgTempPlot from "../components/Graph/MinMaxAvgTempPlot/MinMaxAvgTempPlot";
 
 export default function WeatherPage() {
     const bgs = [
@@ -20,7 +21,7 @@ export default function WeatherPage() {
         "/imgs/backgrounds/weather/snow.jpg"
     ];
 
-    const [currChanceOfRain, setCurrOfRainInfo] = useState<{
+    const [currTemprature, setCurrTemprature] = useState<{
         chanceOfRain?: number, 
         timeIndex?: number | string
     }>({
@@ -29,7 +30,7 @@ export default function WeatherPage() {
     });
     
     const handleHoverTemperatureChange = (data: { data: number; timeIndex: number }) => {
-        setCurrOfRainInfo({
+        setCurrTemprature({
             chanceOfRain: data.data,
             timeIndex: data.timeIndex
         });
@@ -55,22 +56,24 @@ export default function WeatherPage() {
 
     if (typeof weatherData === "undefined" || weatherData == null) return <p>Error</p>;
 
-    const chanceOfRain = weatherDataFactory(weatherData, "chanceOfRain");
+    const hourlyTemprature = weatherDataFactory(weatherData, "temperature");
+    const temperature = Math.round(weatherDataFactory(weatherData, "currentTemperature"));
+    const currChanceOfRain = weatherDataFactory(weatherData, "currCategory");
 
-    console.log(chanceOfRain);
+    console.log("Pop:", currChanceOfRain);
 
     return (
         <BackgroundContainer img={bgs[0]} className="">
             <CalenderTitle location="Taipei" datetime="2024/12/19 10:29" />
-            <SmallWeatherCard weather="rain" temp="16°" />
-            <SmallWeatherCard weather="clear" temp="16°" />
-            <SmallWeatherCard weather="cloudy" temp="16°" />
-            <SmallWeatherCard weather="snow" temp="16°" />
+            <SmallWeatherCard weather="rain" temp={temperature + "°"} />
+            <SmallWeatherCard weather="clear" temp={temperature + "°"} />
+            <SmallWeatherCard weather="cloudy" temp={temperature + "°"} />
+            <SmallWeatherCard weather="snow" temp={temperature + "°"} />
             <div>
-                <p>{currChanceOfRain.timeIndex} {currChanceOfRain.chanceOfRain}%</p>
-                <SingleHoverPlot 
+                <p>{currTemprature.timeIndex} {currTemprature.chanceOfRain}°</p>
+                <SingleHoverPlot
                     className={styles.tempChart}
-                    data={chanceOfRain}
+                    data={hourlyTemprature}
                     onHoverTemperatureChange={handleHoverTemperatureChange}
                 />
             </div>

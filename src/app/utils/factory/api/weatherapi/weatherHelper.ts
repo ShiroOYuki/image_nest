@@ -1,4 +1,5 @@
 import { Forecast, DataFeature, ForecastHour } from "@/app/utils/interfaces/api/weatherapi";
+import weatherCategoryFactory from "./weatherCategoryFactory";
 
 type WeatherDataFeatureMap = {
     temperature: number[];
@@ -8,6 +9,8 @@ type WeatherDataFeatureMap = {
     dailyChanceOfRain: number;
     location: string[];
     updateTime: string;
+    currCondText: number;
+    currCategory: string;
 };
 
 export function weatherDataFactory<K extends keyof WeatherDataFeatureMap>(
@@ -21,7 +24,9 @@ export function weatherDataFactory<K extends keyof WeatherDataFeatureMap>(
         currentChanceOfRain: () => extractCurrPop(data),
         dailyChanceOfRain: () => extractDailyPop(data),
         location: () => extractLocation(data),
-        updateTime: () => extractUpdateTime(data)
+        updateTime: () => extractUpdateTime(data),
+        currCondText: () => extractCurrConditionText(data),
+        currCategory: () => extractCurrCategory(data)
     };
 
     return handlers[feature]?.();
@@ -51,7 +56,11 @@ function extractPop(data: Forecast): number[] {
 }
 
 function extractCurrPop(data: Forecast): number {
-    return data.current.chance_of_rain;
+    return data.current.precip_mm;
+}
+
+function extractCurrConditionText(data: Forecast): number {
+    return data.current.condition.code;
 }
 
 function extractDailyPop(data: Forecast): number {
@@ -85,4 +94,9 @@ function extractMinMaxAvg(data: Forecast) {
         avg: avg,
         data: data
     }
+}
+
+function extractCurrCategory(data: Forecast): string {
+    const code = data.current.condition.code;
+    return weatherCategoryFactory(code);
 }

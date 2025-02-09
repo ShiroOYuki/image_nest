@@ -2,6 +2,7 @@
 
 interface Condition {
     text: string;
+    code: number;
 }
 
 export interface Location {
