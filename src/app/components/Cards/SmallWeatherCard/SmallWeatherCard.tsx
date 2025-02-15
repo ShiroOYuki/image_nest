@@ -2,11 +2,12 @@
 
 import { ReactSVG } from "react-svg";
 import styles from "./SmallWeatherCard.module.css";
+import { basicWeather } from "@/app/utils/typesAndInterfaces";
 
 
 interface SmallWeatherCardProps {
     className?: string;
-    weather: "rain" | "clear" | "cloudy" | "snow";
+    weather: basicWeather;
     temp: string;
 }
 
@@ -15,11 +16,12 @@ export default function SmallWeatherCard({
     weather,
     temp
 }: SmallWeatherCardProps) {
-    const icons = {
+    const icons: {[key in basicWeather]: string} = {
         rain: "/imgs/icons/weather/rain.svg",
         clear: "/imgs/icons/weather/clear.svg",
         cloudy: "/imgs/icons/weather/cloudy.svg",
-        snow: "/imgs/icons/weather/snow.svg"
+        snow: "/imgs/icons/weather/snow.svg",
+        unknown: ""
     };
 
     return (

@@ -1,5 +1,6 @@
 import { Forecast, DataFeature, ForecastHour } from "@/app/utils/interfaces/api/weatherapi";
 import weatherCategoryFactory from "./weatherCategoryFactory";
+import { basicWeather } from "@/app/utils/typesAndInterfaces";
 
 type WeatherDataFeatureMap = {
     temperature: number[];
@@ -10,7 +11,7 @@ type WeatherDataFeatureMap = {
     location: string[];
     updateTime: string;
     currCondText: number;
-    currCategory: string;
+    currCategory: basicWeather;
 };
 
 export function weatherDataFactory<K extends keyof WeatherDataFeatureMap>(
@@ -96,7 +97,7 @@ function extractMinMaxAvg(data: Forecast) {
     }
 }
 
-function extractCurrCategory(data: Forecast): string {
+function extractCurrCategory(data: Forecast): basicWeather {
     const code = data.current.condition.code;
     return weatherCategoryFactory(code);
 }

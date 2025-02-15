@@ -1,0 +1,1 @@
+export type basicWeather = "rain" | "clear" | "cloudy" | "snow" | "unknown";
