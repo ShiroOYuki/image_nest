@@ -63,3 +63,20 @@
 .linkBtn:active {
     transform: scale(1.2);
 }
+
+.externalLinkBtn {
+    transform: none;
+}
+
+.externalLinkBtn svg {
+    stroke: var(--font-color-dark);
+    margin-top: 10px;
+}
+
+.externalLinkBtn:hover svg {
+    stroke: var(--font-color-default);
+}
+
+.externalLinkBtn:active {
+    transform: scale(1.2);
+}

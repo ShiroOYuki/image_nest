@@ -153,7 +153,16 @@ export default function WeatherPage() {
     return (
         <BackgroundContainer img={bgs[weatherCategory]} className={styles.container}>
             <div className={styles.head}>
-                <CalenderTitle location={location[1]} datetime={updateTime} className={styles.title}/>
+                <div className={styles.row}>
+                    <CalenderTitle location={location[1]} datetime={updateTime} className={styles.title}/>
+                    <ClearIconButton 
+                        width={50}
+                        height={50}
+                        src="/imgs/icons/external-link.svg"
+                        onClick={() => window.open("https://www.weatherapi.com/weather", "_blank")}
+                        className={styles.externalLinkBtn}
+                    />
+                </div>
                 <ClearIconButton 
                     width={50}
                     height={50}
