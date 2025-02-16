@@ -65,8 +65,26 @@ export default function WeatherPage() {
     
     const [weatherData, setWeatherData] = useState<Forecast | null>(null);
     const [loading, setLoading] = useState(true);
+    const [reloading, setReloading] = useState(true);
+
+    useEffect(() => {
+        if (reloading) {
+            const coor = getLocation();
+            fetchData(
+                setWeatherData, 
+                setLoading, 
+                null, 
+                {
+                    coordinate: coor, 
+                    days: 2
+                }
+            );
+            setReloading(false);
+            setInterval(() => setReloading(true), 30*60*1000);
+        }
+    }, [reloading]);
+
     const [displayTime, setDisplayTime] = useState("--:--");
-    
     const {
         currTemp,  // Current
         hourlyTemp, // Next 48 hours
@@ -103,18 +121,6 @@ export default function WeatherPage() {
     
         return { currTemp, hourlyTemp, updateTime, location, weatherCategory, cards};
     }, [weatherData]);
-
-    useEffect(() => {
-        const coor = getLocation();
-        fetchData(
-            setWeatherData, 
-            setLoading, 
-            null, 
-            {
-                coordinate: coor, 
-                days: 2
-            });
-    }, []);
     
     const hoveredTime = currTemprature.timeIndex?.toString().padStart(2, "0");
     useEffect(() => {
