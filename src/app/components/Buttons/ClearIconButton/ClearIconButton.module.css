@@ -1,0 +1,21 @@
+.button {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 4px;
+    object-fit: contain;
+}
+
+.icon > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+}
