@@ -70,15 +70,8 @@ export default function WeatherPage() {
     
     const [weatherData, setWeatherData] = useState<Forecast | null>(null);
     const [loading, setLoading] = useState(true);
-    const [pageLoaded, setPageLoaded] = useState(false);
     const [reloading, setReloading] = useState(true);
     const router = useRouter();
-
-    useEffect(() => {
-        if (document.readyState == "complete") {
-            setPageLoaded(true);
-        }
-    }, []);
 
     useEffect(() => {
         const currentMinute = new Date().getMinutes();
@@ -147,7 +140,7 @@ export default function WeatherPage() {
         }
     }, [hoveredTime]);
 
-    if (loading || !pageLoaded) return <SpinningLoader />;
+    if (loading) return <SpinningLoader />;
 
     return (
         <BackgroundContainer img={bgs[weatherCategory]} className={styles.container}>
