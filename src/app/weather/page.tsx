@@ -68,7 +68,8 @@ export default function WeatherPage() {
     const [reloading, setReloading] = useState(true);
 
     useEffect(() => {
-        if (reloading) {
+        const currentMinute = new Date().getMinutes();
+        if (reloading && currentMinute <= 30) {
             const coor = getLocation();
             fetchData(
                 setWeatherData, 
