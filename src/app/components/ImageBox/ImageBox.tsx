@@ -11,7 +11,7 @@ export default function ImageBox({
 }) {
     return (
         <div className={styles.imagebox}>
-            <Image src={src} alt={placeholder} className={`${styles.image} ${mixinStyles.rounded}`} />
+            <Image src={src} alt={placeholder} className={`${mixinStyles.rounded}`} fill style={{ objectFit: "cover" }}/>
         </div>
     )
 }

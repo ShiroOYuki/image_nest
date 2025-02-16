@@ -14,6 +14,11 @@ import { fetchData } from "../utils/factory/api/weatherapi/fetchWeather";
 import { weatherDataFactory } from "../utils/factory/api/weatherapi/weatherHelper";
 import { getLocation } from "../utils/utils";
 import { basicWeather } from "../utils/typesAndInterfaces";
+import ClearIconButton from "../components/Buttons/ClearIconButton/ClearIconButton";
+import { useRouter } from "next/navigation";
+import SpinningLoader from "../components/LoadingAnimations/SpinningLoader/SpinningLoader";
+
+const UPDATE_PER_MINUTE = 5;
 
 function makeWeatherDetailCards(
     currHour: number, 
@@ -66,10 +71,11 @@ export default function WeatherPage() {
     const [weatherData, setWeatherData] = useState<Forecast | null>(null);
     const [loading, setLoading] = useState(true);
     const [reloading, setReloading] = useState(true);
+    const router = useRouter();
 
     useEffect(() => {
         const currentMinute = new Date().getMinutes();
-        if (reloading && currentMinute <= 30) {
+        if (!weatherData || (reloading && currentMinute <= UPDATE_PER_MINUTE)) {
             const coor = getLocation();
             fetchData(
                 setWeatherData, 
@@ -81,7 +87,7 @@ export default function WeatherPage() {
                 }
             );
             setReloading(false);
-            setInterval(() => setReloading(true), 30*60*1000);
+            setInterval(() => setReloading(true), UPDATE_PER_MINUTE*60*1000);
         }
     }, [reloading]);
 
@@ -130,12 +136,21 @@ export default function WeatherPage() {
         }
     }, [hoveredTime]);
 
-    if (loading) return <p>Loading...</p>;
-
+    if (loading) return <SpinningLoader />;
 
     return (
         <BackgroundContainer img={bgs[weatherCategory]} className={styles.container}>
-            <CalenderTitle location={location[1]} datetime={updateTime} className={styles.title}/>
+            <div className={styles.head}>
+                <CalenderTitle location={location[1]} datetime={updateTime} className={styles.title}/>
+                <ClearIconButton 
+                    width={50}
+                    height={50}
+                    src="/imgs/icons/home.svg"
+                    onClick={() => router.push("/")}
+                    className={styles.linkBtn}
+                    stroke="white"
+                />
+            </div>
             <div className={styles.bottom}>
                 <div className={styles.row}>
                     <SmallWeatherCard weather={weatherCategory} temp={currTemp + "°"} />

@@ -13,7 +13,9 @@
 
 .detailCards {
     background: linear-gradient(0deg, var(--color-black) 0%, #0000 100%);
-    justify-content: space-between;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .tempChart {
@@ -35,8 +37,28 @@
     margin: 10px;
 }
 
+.head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .bottom {
     display: flex;
     flex-direction: column;
     gap: 25px;
+}
+
+.linkBtn {
+    transform: none;
+    transition: transform 0.2s ease-out;
+    margin: 10px 15px;
+}
+
+.linkBtn:hover {
+    transform: translate3D(0px, -5px, 0px);
+}
+
+.linkBtn:active {
+    transform: scale(1.2);
 }

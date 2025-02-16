@@ -1,4 +1,5 @@
 .link {
     display: block;
     width: min-content;
+    position: relative;
 }

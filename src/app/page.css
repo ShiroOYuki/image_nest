@@ -3,3 +3,9 @@ body {
     flex-direction: column;
     width: 100%;
 }
+
+::selection {
+    background: rgba(255, 255, 255, 0.1);
+    mix-blend-mode: multiply;
+    backdrop-filter: blur(50px);
+}

@@ -37,7 +37,7 @@ export default function ImageCard({
             </div>
             <div className={styles.footer}>
                 <div className={styles.author}>
-                    <Image className={styles.icon} src={authorIcon} alt="" />
+                    <Image className={styles.icon} src={authorIcon} alt="" width={30} height={30}/>
                     <p className={styles.name}>{authorName}</p>
                 </div>
             </div>

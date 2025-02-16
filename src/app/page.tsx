@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from "react";
-import GlassIconButton from "./components/Buttons/GlassIconButton/GlassIconButton";
+import ClearIconButton from "./components/Buttons/ClearIconButton/ClearIconButton";
 import Calender1 from "./components/Clocks/Calender1/Calender1";
 import Clock1 from "./components/Clocks/Clock1/Clock1";
 import BackgroundContainer from "./components/Containers/BackgroundContainer/BackgroundContainer";
@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { getLocation } from "./utils/utils";
 import { Coordinate } from "./utils/interfaces/api/weatherapi";
 import { WeatherCardFactory } from "./components/Cards/WeatherCard/WeatherCard";
+import SpinningLoader from "./components/LoadingAnimations/SpinningLoader/SpinningLoader";
 
 export default function Page() {
     const router = useRouter();
@@ -50,39 +51,39 @@ export default function Page() {
         }
     }, [changing]);
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <SpinningLoader />;
 
     const galleryButton = (
-        <GlassIconButton
+        <ClearIconButton
             width={50}
             height={50}
             src="/imgs/icons/layout-dashboard.svg"
             onClick={() => router.push("/gallery")}
             className={styles.linkBtn}
             stroke="white"
-        ></GlassIconButton>
+        ></ClearIconButton>
     )
 
-    const cryptoButton = (
-        <GlassIconButton
+    const weatherButton = (
+        <ClearIconButton
             width={50}
             height={50}
-            src="/imgs/icons/chart-line.svg"
+            src="/imgs/icons/cloud.svg"
             onClick={() => router.push("/weather")}
             className={styles.linkBtn}
             stroke="white"
-        ></GlassIconButton>
+        ></ClearIconButton>
     )
 
     const changeImageButton = (
-        <GlassIconButton
+        <ClearIconButton
             width={50}
             height={50}
             src="/imgs/icons/arrow-right-left.svg"
             onClick={() => {if(!changing) setchanging(true)}}
             className={styles.linkBtn}
             stroke="white"
-        ></GlassIconButton>
+        ></ClearIconButton>
     )
 
     return (
@@ -90,7 +91,7 @@ export default function Page() {
             <div className={styles.header}>
                 <div className={styles.left}>
                     {galleryButton}
-                    {cryptoButton}
+                    {weatherButton}
                 </div>
                 <div className={styles.center}>
                     <Calender1 />
@@ -114,7 +115,7 @@ export default function Page() {
                 </div>
             </div>
             <div className={styles.body}>
-                <Clock1></Clock1>
+                <Clock1 />
             </div>
             <div className={styles.footer}>
                 <div className={styles.left}></div>

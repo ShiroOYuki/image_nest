@@ -24,6 +24,19 @@
     width: 100%;
 }
 
+.linkBtn {
+    transform: none;
+    transition: transform 0.2s ease-out;
+}
+
+.linkBtn:hover {
+    transform: translate3D(5px, 5px, 0px);
+}
+
+.linkBtn:active {
+    transform: scale(1.2);
+}
+
 .linkBtn > img {
     fill: white;
 }
