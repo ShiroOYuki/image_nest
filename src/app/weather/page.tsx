@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import SmallWeatherCard from "../components/Cards/SmallWeatherCard/SmallWeatherCard";
 import WeatherDetailCard from "../components/Cards/WeatherDetailCard/WeatherDetailCard";
 import CalenderTitle from "../components/Clocks/CalenderTitle/CalenderTitle";
@@ -12,14 +12,40 @@ import SingleHoverPlot from "../components/Graph/SingleHoverPlot/SingleHoverPlot
 import { weatherDataFactory } from "../utils/factory/api/weatherapi/weatherHelper";
 import { getLocation } from "../utils/utils";
 import MinMaxAvgTempPlot from "../components/Graph/MinMaxAvgTempPlot/MinMaxAvgTempPlot";
+import { basicWeather } from "../utils/typesAndInterfaces";
+
+function makeWeatherDetailCards(
+    currHour: number, 
+    hourlyTemp: number[], 
+    hourlyCategory: basicWeather[],
+    hourlyChanceOfRain: number[],
+    hourlyFeelslike: number[]
+) {
+    const cards = [];
+    for(let i=currHour; i<currHour+8; i++) {
+        cards.push(
+            <WeatherDetailCard
+                time={`${i.toString().padStart(2, "0")}:00`}
+                weather={hourlyCategory[i]}
+                temp={hourlyTemp[i]}
+                feelslike={hourlyFeelslike[i]}
+                chanceOfRain={hourlyChanceOfRain[i]}
+                key={`card-${i}`}
+            />
+        )
+    }
+
+    return cards;
+}
 
 export default function WeatherPage() {
-    const bgs = [
-        "/imgs/backgrounds/weather/rain.jpg",
-        "/imgs/backgrounds/weather/clear.jpg",
-        "/imgs/backgrounds/weather/cloudy.jpg",
-        "/imgs/backgrounds/weather/snow.jpg"
-    ];
+    const bgs: {[key in basicWeather]: string} = {
+        rain: "/imgs/backgrounds/weather/rain.jpg",
+        clear: "/imgs/backgrounds/weather/clear.jpg",
+        cloudy: "/imgs/backgrounds/weather/cloudy.jpg",
+        snow: "/imgs/backgrounds/weather/snow.jpg",
+        unknown: ""
+    };
 
     const [currTemprature, setCurrTemprature] = useState<{
         chanceOfRain?: number, 
@@ -38,6 +64,44 @@ export default function WeatherPage() {
     
     const [weatherData, setWeatherData] = useState<Forecast | null>(null);
     const [loading, setLoading] = useState(true);
+    const [displayTime, setDisplayTime] = useState("--:--");
+    
+    const {
+        currTemp,  // Current
+        hourlyTemp, // Next 48 hours
+        updateTime,
+        location,
+        weatherCategory,
+        cards
+    } = useMemo(() => {
+        if (!weatherData) return {
+            currTemp: 0,
+            hourlyTemp: [],
+            forecastTemp: [],
+            updateTime: "",
+            location: [],
+            weatherCategory: "unknown" as basicWeather,
+            cards: []
+        };
+    
+        const hourlyTemp = weatherDataFactory(weatherData, "temperature");
+        const hourlyFeelslike = weatherDataFactory(weatherData, "feelslike");
+        const currTemp = Math.round(weatherDataFactory(weatherData, "currentTemperature"));
+        const weatherCategory = weatherDataFactory(weatherData, "currCategory");
+        const updateTime = weatherDataFactory(weatherData, "updateTime");
+        const location = weatherDataFactory(weatherData, "location");
+    
+        const ct = updateTime.split(" ")[1] || "00:00";
+        const currHour = parseInt(ct.split(":")[0]);
+
+        const hourlyCategory = weatherDataFactory(weatherData, "hourlyCategory");
+        const hourlyChanceOfRain = weatherDataFactory(weatherData, "chanceOfRain");
+
+        const cards = makeWeatherDetailCards(currHour, hourlyTemp, hourlyCategory, hourlyChanceOfRain, hourlyFeelslike);
+        console.log(weatherData);
+    
+        return { currTemp, hourlyTemp, updateTime, location, weatherCategory, cards};
+    }, [weatherData]);
 
     useEffect(() => {
         const coor = getLocation();
@@ -47,75 +111,40 @@ export default function WeatherPage() {
             null, 
             {
                 coordinate: coor, 
-                days: 1
+                days: 2
             });
     }, []);
     
+    const hoveredTime = currTemprature.timeIndex?.toString().padStart(2, "0");
+    useEffect(() => {
+        if (hoveredTime) {
+            setDisplayTime(hoveredTime + ":00");
+        }
+    }, [hoveredTime]);
+
     if (loading) return <p>Loading...</p>;
 
-    if (typeof weatherData === "undefined" || weatherData == null) return <p>Error</p>;
-
-    const hourlyTemprature = weatherDataFactory(weatherData, "temperature");
-    const temperature = Math.round(weatherDataFactory(weatherData, "currentTemperature"));
-    const weatherCategory = weatherDataFactory(weatherData, "currCategory");
-    const updateTime = weatherDataFactory(weatherData, "updateTime");
-    const location = weatherDataFactory(weatherData, "location");
-    const forecastTemp = weatherDataFactory(weatherData, "temperature");
-
-    console.log(weatherData)
-    console.log(forecastTemp)
 
     return (
-        <BackgroundContainer img={bgs[0]} className={styles.container}>
+        <BackgroundContainer img={bgs[weatherCategory]} className={styles.container}>
             <CalenderTitle location={location[1]} datetime={updateTime} className={styles.title}/>
             <div className={styles.bottom}>
                 <div className={styles.row}>
-                    <SmallWeatherCard weather={weatherCategory} temp={temperature + "°"} />
+                    <SmallWeatherCard weather={weatherCategory} temp={currTemp + "°"} />
                     <div className={styles.plotContainer}>
                         <p className={styles.plotValue}>
-                            {currTemprature.timeIndex?.toString().padStart(2, "0")}:00 | {currTemprature.chanceOfRain?.toFixed(1)}°C
+                            {displayTime} | {currTemprature.chanceOfRain?.toFixed(1) || "--"}°C
                         </p>
                         <SingleHoverPlot
                             className={styles.tempChart}
-                            data={hourlyTemprature}
+                            data={hourlyTemp.slice(0, 24)}
                             onHoverTemperatureChange={handleHoverTemperatureChange}
                         />
                     </div>
                 </div>
-                <div className={styles.row}>
-                    <WeatherDetailCard
-                        time="03:00"
-                        weather="rain"
-                        temp={16}
-                        maxTemp={24}
-                        minTemp={12}
-                        chanceOfRain={88}
-                    />
-                    <WeatherDetailCard
-                        time="03:00"
-                        weather="clear"
-                        temp={16}
-                        maxTemp={24}
-                        minTemp={12}
-                        chanceOfRain={88}
-                    />
-                    <WeatherDetailCard
-                        time="03:00"
-                        weather="cloudy"
-                        temp={16}
-                        maxTemp={24}
-                        minTemp={12}
-                        chanceOfRain={88}
-                    />
-                    <WeatherDetailCard
-                        time="03:00"
-                        weather="snow"
-                        temp={16}
-                        maxTemp={24}
-                        minTemp={12}
-                        chanceOfRain={88}
-                    />
-                </div>
+                    <div className={`${styles.row} ${styles.detailCards}`}>
+                        {cards}
+                    </div>
             </div>
         </BackgroundContainer>
     )

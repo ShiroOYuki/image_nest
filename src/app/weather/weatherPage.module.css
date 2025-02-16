@@ -11,8 +11,9 @@
     height: min-content;
 }
 
-.row:last-child {
+.detailCards {
     background: linear-gradient(0deg, var(--color-black) 0%, #0000 100%);
+    justify-content: space-between;
 }
 
 .tempChart {

@@ -2,14 +2,14 @@
 
 import { ReactSVG } from "react-svg";
 import styles from "./WeatherDetailCard.module.css";
+import { basicWeather } from "@/app/utils/typesAndInterfaces";
 
 interface WeatherDetailCardProps {
     className?: string;
     time: string;
-    weather: "rain" | "clear" | "cloudy" | "snow";
+    weather: basicWeather;
     temp: number;
-    maxTemp: number;
-    minTemp: number;
+    feelslike: number;
     chanceOfRain: number;
 }
 
@@ -18,15 +18,15 @@ export default function WeatherDetailCard({
     time,
     weather,
     temp,
-    maxTemp,
-    minTemp,
+    feelslike,
     chanceOfRain
 }: WeatherDetailCardProps) {
-    const icons = {
+    const icons: {[key in basicWeather]: string} = {
         rain: "/imgs/icons/weather/rain.svg",
         clear: "/imgs/icons/weather/clear.svg",
         cloudy: "/imgs/icons/weather/cloudy.svg",
-        snow: "/imgs/icons/weather/snow.svg"
+        snow: "/imgs/icons/weather/snow.svg",
+        unknown: ""
     };
 
     return (
@@ -47,9 +47,7 @@ export default function WeatherDetailCard({
                 <div className={styles.tempContainer}>
                     <p className={styles.temp}>{temp}°</p>
                     <div className={styles.minMaxTemp}>
-                        <span className={styles.maxTemp}>{maxTemp}°</span>
-                        <span className={styles.split}>|</span>
-                        <span className={styles.minTemp}>{minTemp}°</span>
+                        <span className={styles.feelslike}>Feels {feelslike}°</span>
                     </div>
                 </div>
                 <div className={styles.chanceContainer}>

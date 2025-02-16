@@ -5,6 +5,7 @@ import { basicWeather } from "@/app/utils/typesAndInterfaces";
 type WeatherDataFeatureMap = {
     temperature: number[];
     currentTemperature: number;
+    feelslike: number[];
     chanceOfRain: number[];
     currentChanceOfRain: number;
     dailyChanceOfRain: number;
@@ -12,6 +13,7 @@ type WeatherDataFeatureMap = {
     updateTime: string;
     currCondText: number;
     currCategory: basicWeather;
+    hourlyCategory: basicWeather[];
 };
 
 export function weatherDataFactory<K extends keyof WeatherDataFeatureMap>(
@@ -21,27 +23,27 @@ export function weatherDataFactory<K extends keyof WeatherDataFeatureMap>(
     const handlers: {[key in keyof WeatherDataFeatureMap]: () => WeatherDataFeatureMap[key]} = {
         temperature: () => extractTemperature(data),
         currentTemperature: () => extractCurrTemperature(data),
+        feelslike: () => extractFeelslike(data),
         chanceOfRain: () => extractPop(data),
         currentChanceOfRain: () => extractCurrPop(data),
         dailyChanceOfRain: () => extractDailyPop(data),
         location: () => extractLocation(data),
         updateTime: () => extractUpdateTime(data),
         currCondText: () => extractCurrConditionText(data),
-        currCategory: () => extractCurrCategory(data)
+        currCategory: () => extractCurrCategory(data),
+        hourlyCategory: () => extractHourlyCategory(data)
     };
 
     return handlers[feature]?.();
 }
 
-function extractHourlyData(data: Forecast, key: keyof ForecastHour): number[] {
-    return data.forecast.forecastday.reduce((prev, curr) => {
-        curr.hour.forEach(hour => {
-            if (hour[key] !== undefined) {
-                prev.push(hour[key] as number);
-            }
-        });
-        return prev;
-    }, [] as number[]);
+function extractHourlyData<K extends keyof ForecastHour>(
+    data: Forecast,
+    key: K
+): ForecastHour[K][] {
+    return data.forecast.forecastday.flatMap(day =>
+        day.hour.map(hour => hour[key]).filter(value => value !== undefined)
+    );
 }
 
 function extractTemperature(data: Forecast): number[] {
@@ -50,6 +52,10 @@ function extractTemperature(data: Forecast): number[] {
 
 function extractCurrTemperature(data: Forecast): number {
     return data.current.temp_c;
+}
+
+function extractFeelslike(data: Forecast): number[] {
+    return extractHourlyData(data, "feelslike_c");
 }
 
 function extractPop(data: Forecast): number[] {
@@ -100,4 +106,11 @@ function extractMinMaxAvg(data: Forecast) {
 function extractCurrCategory(data: Forecast): basicWeather {
     const code = data.current.condition.code;
     return weatherCategoryFactory(code);
+}
+
+function extractHourlyCategory(data: Forecast): basicWeather[] {
+    const cond = extractHourlyData(data, "condition");
+    return cond.map((c) => {
+        return weatherCategoryFactory(c.code)
+    });
 }
