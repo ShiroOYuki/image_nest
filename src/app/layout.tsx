@@ -6,7 +6,10 @@ import styles from './layout.module.css'
 
 export const metadata = {
     title: 'Image Nest',
-    description: 'Hello!'
+    description: 'Hello!',
+    icons: {
+        icon: "/imgs/favicon.ico"
+    }
 };
 
 export default function RootLayout({

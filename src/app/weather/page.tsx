@@ -70,11 +70,19 @@ export default function WeatherPage() {
     
     const [weatherData, setWeatherData] = useState<Forecast | null>(null);
     const [loading, setLoading] = useState(true);
+    const [pageLoaded, setPageLoaded] = useState(false);
     const [reloading, setReloading] = useState(true);
     const router = useRouter();
 
     useEffect(() => {
+        if (document.readyState == "complete") {
+            setPageLoaded(true);
+        }
+    }, []);
+
+    useEffect(() => {
         const currentMinute = new Date().getMinutes();
+
         if (!weatherData || (reloading && currentMinute <= UPDATE_PER_MINUTE)) {
             const coor = getLocation();
             fetchData(
@@ -85,10 +93,14 @@ export default function WeatherPage() {
                     coordinate: coor, 
                     days: 2
                 }
-            );
-            setReloading(false);
-            setInterval(() => setReloading(true), UPDATE_PER_MINUTE*60*1000);
+            ).then(() => {
+                setReloading(false);
+            });
         }
+        
+        const reloadInterval = setInterval(() => setReloading(true), UPDATE_PER_MINUTE*60*1000);
+
+        return () => clearInterval(reloadInterval);
     }, [reloading]);
 
     const [displayTime, setDisplayTime] = useState("--:--");
@@ -136,7 +148,7 @@ export default function WeatherPage() {
         }
     }, [hoveredTime]);
 
-    if (loading) return <SpinningLoader />;
+    if (loading || !pageLoaded) return <SpinningLoader />;
 
     return (
         <BackgroundContainer img={bgs[weatherCategory]} className={styles.container}>
