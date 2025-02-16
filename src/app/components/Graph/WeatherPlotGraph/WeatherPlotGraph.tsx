@@ -33,12 +33,10 @@ export function WeatherPlotGraph({
     }, []);
 
     if (loading) return <p>Loading...</p>;
+    if (isError || !data) return <p>Error</p>;
 
     const processedData = weatherDataFactory(data, feature) as number[];
 
-    if (isError) {
-        return <p>Error</p>;
-    }
 
     return <PlotGraph 
         data={processedData}

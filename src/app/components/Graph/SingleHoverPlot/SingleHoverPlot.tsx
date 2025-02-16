@@ -26,20 +26,17 @@ export default function SingleHoverPlot({
     const PlotRef = useRef<SVGSVGElement>(null);
     
     const [gradientId, setBlueGradientId] = useState("");
-    const [redGradientId, setRedGradientId] = useState("");
 
     const [linePos, setLinePos] = useState([0, 0, 0]);
     const color = "white";
 
     useEffect(() => {
         setBlueGradientId(uuid());
-        setRedGradientId(uuid());
         
         const handleMouseMove = (event: MouseEvent) => {
             if (PlotRef.current) {
                 const rect = PlotRef.current.getBoundingClientRect();
                 const x = event.clientX - rect.left; // 滑鼠相對於元素的 X 座標
-                const y = event.clientY - rect.top;  // 滑鼠相對於元素的 Y 座標
                 const n = data.length;
                 const space = rect.width / (n-1);
                 const idx = Math.ceil(clamp(x - space/2, 0, rect.width) / space);

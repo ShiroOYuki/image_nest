@@ -1,17 +1,18 @@
 'use client'
 
 import { useEffect, useMemo, useState } from "react";
+
 import SmallWeatherCard from "../components/Cards/SmallWeatherCard/SmallWeatherCard";
 import WeatherDetailCard from "../components/Cards/WeatherDetailCard/WeatherDetailCard";
 import CalenderTitle from "../components/Clocks/CalenderTitle/CalenderTitle";
 import BackgroundContainer from "../components/Containers/BackgroundContainer/BackgroundContainer";
 import styles from "./weatherPage.module.css";
+import SingleHoverPlot from "../components/Graph/SingleHoverPlot/SingleHoverPlot";
+
 import { Forecast } from "../utils/interfaces/api/weatherapi";
 import { fetchData } from "../utils/factory/api/weatherapi/fetchWeather";
-import SingleHoverPlot from "../components/Graph/SingleHoverPlot/SingleHoverPlot";
 import { weatherDataFactory } from "../utils/factory/api/weatherapi/weatherHelper";
 import { getLocation } from "../utils/utils";
-import MinMaxAvgTempPlot from "../components/Graph/MinMaxAvgTempPlot/MinMaxAvgTempPlot";
 import { basicWeather } from "../utils/typesAndInterfaces";
 
 function makeWeatherDetailCards(

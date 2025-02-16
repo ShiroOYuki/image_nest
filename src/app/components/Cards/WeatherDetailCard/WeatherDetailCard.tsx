@@ -30,7 +30,7 @@ export default function WeatherDetailCard({
     };
 
     return (
-        <div className={styles.container}>
+        <div className={`${styles.container} ${className}`}>
             <p className={styles.time}>{time}</p>
             <div className={styles.details}>
                 <ReactSVG 

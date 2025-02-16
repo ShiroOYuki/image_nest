@@ -49,6 +49,7 @@ export function WeatherCardFactory({
     }, []);
 
     if (loading) return <p>Loading...</p>;
+    if (!weatherData) return <p>Error...</p>;
     
     let data = [2, 2];
     let title: string | number = "--";

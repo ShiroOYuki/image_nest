@@ -1,4 +1,4 @@
-import { Forecast, DataFeature, ForecastHour } from "@/app/utils/interfaces/api/weatherapi";
+import { Forecast, ForecastHour } from "@/app/utils/interfaces/api/weatherapi";
 import weatherCategoryFactory from "./weatherCategoryFactory";
 import { basicWeather } from "@/app/utils/typesAndInterfaces";
 
@@ -80,27 +80,6 @@ function extractLocation(data: Forecast): string[] {
 
 function extractUpdateTime(data: Forecast): string {
     return data.current.last_updated;
-}
-
-function extractMinMaxAvg(data: Forecast) {
-    let min: number[] = [];
-    let max: number[] = [];
-    let avg: number[] = [];
-    let date: string[] = [];
-    data.forecast.forecastday.forEach((day) => {
-        const eachDay = day.day;
-        min.push(eachDay.mintemp_c);
-        max.push(eachDay.maxtemp_c);
-        avg.push(eachDay.avgtemp_c);
-        date.push(day.date);
-    });
-    const forecastToday = data.forecast.forecastday[0];
-    return {
-        min: min,
-        max: max,
-        avg: avg,
-        data: data
-    }
 }
 
 function extractCurrCategory(data: Forecast): basicWeather {
