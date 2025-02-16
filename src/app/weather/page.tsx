@@ -136,7 +136,6 @@ export default function WeatherPage() {
         const hourlyChanceOfRain = weatherDataFactory(weatherData, "chanceOfRain");
 
         const cards = makeWeatherDetailCards(currHour, hourlyTemp, hourlyCategory, hourlyChanceOfRain, hourlyFeelslike);
-        console.log(weatherData);
     
         return { currTemp, hourlyTemp, updateTime, location, weatherCategory, cards};
     }, [weatherData]);
