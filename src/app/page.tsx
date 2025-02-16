@@ -131,7 +131,7 @@ export default function Page() {
                     />
                 </div>
                 <div className={styles.right}>
-                    <p>#Shiro</p>
+                    <p>#Ciel</p>
                 </div>
             </div>
         </BackgroundContainer> 
