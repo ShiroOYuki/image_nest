@@ -31,7 +31,7 @@ function makeWeatherDetailCards(
     for(let i=currHour; i<currHour+8; i++) {
         cards.push(
             <WeatherDetailCard
-                time={`${i.toString().padStart(2, "0")}:00`}
+                time={`${(i%24).toString().padStart(2, "0")}:00`}
                 weather={hourlyCategory[i]}
                 temp={hourlyTemp[i]}
                 feelslike={hourlyFeelslike[i]}
