@@ -53,17 +53,6 @@ export default function Page() {
 
     if (loading) return <SpinningLoader />;
 
-    const galleryButton = (
-        <ClearIconButton
-            width={50}
-            height={50}
-            src="/imgs/icons/layout-dashboard.svg"
-            onClick={() => router.push("/gallery")}
-            className={styles.linkBtn}
-            stroke="white"
-        ></ClearIconButton>
-    )
-
     const weatherButton = (
         <ClearIconButton
             width={50}
@@ -90,7 +79,6 @@ export default function Page() {
         <BackgroundContainer img={bgs[bg]} className={styles.container} brightness={brightness}>
             <div className={styles.header}>
                 <div className={styles.left}>
-                    {galleryButton}
                     {weatherButton}
                 </div>
                 <div className={styles.center}>
