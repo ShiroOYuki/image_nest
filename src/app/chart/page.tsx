@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import SpinningLoader from "../components/LoadingAnimations/SpinningLoader/SpinningLoader";
 import PressToggleButton from "../components/Buttons/PressToggleButton/PressToggleButton";
 import styles from "./page.module.css";
+import SideExpendedButton from "../components/Buttons/SideExpendedButton/SideExpendedButton";
 
 export default function ChartPage() {
     const [loading, setLoading] = useState(true);
@@ -97,6 +98,16 @@ export default function ChartPage() {
                 {toggleGridBtn}
                 {toggleLegendBtn}
             </div>
+            <SideExpendedButton 
+                text={["A", "B", "C"]}
+                onClick={[
+                    () => {console.log("A")},
+                    () => {console.log("B")},
+                    () => {console.log("C")}
+                ]}
+                icon="/imgs/icons/download.svg"
+                iconColor="white"
+            />
         </div>
     );
 }
