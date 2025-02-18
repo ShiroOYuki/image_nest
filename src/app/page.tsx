@@ -62,7 +62,19 @@ export default function Page() {
             className={styles.linkBtn}
             stroke="white"
         ></ClearIconButton>
-    )
+    );
+
+    const chartButton = (
+        <ClearIconButton
+            width={50}
+            height={50}
+            src="/imgs/icons/chart-line.svg"
+            onClick={() => router.push("/chart")}
+            className={styles.linkBtn}
+            stroke="white"
+        ></ClearIconButton>
+    );
+
 
     const changeImageButton = (
         <ClearIconButton
@@ -73,13 +85,14 @@ export default function Page() {
             className={styles.linkBtn}
             stroke="white"
         ></ClearIconButton>
-    )
+    );
 
     return (
         <BackgroundContainer img={bgs[bg]} className={styles.container} brightness={brightness}>
             <div className={styles.header}>
                 <div className={styles.left}>
                     {weatherButton}
+                    {chartButton}
                 </div>
                 <div className={styles.center}>
                     <Calender1 />

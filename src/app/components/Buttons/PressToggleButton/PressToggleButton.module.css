@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 150px;
+    height: 30px;
+    
+    background-color: var(--font-color-default);
+    border-radius: 5px;
+
+    user-select: none;
+
+    transition: box-shadow 0.1s;
+}
+
+.container.enable {
+    box-shadow: 
+        inset 2px 2px 4px var(--shadow-black), 
+        inset -2px -2px 4px #FFF,
+        0px 0px 0px var(--shadow-black), 
+        0px 0px 0px #FFF;
+}
+
+.container.disable {
+    box-shadow: 
+        inset 0px 0px 0px var(--shadow-black), 
+        inset 0px 0px 0px #FFF,
+        2px 2px 4px var(--shadow-black), 
+        -4px -4px 8px #FFF;
+}
+
+.text {
+    font-size: var(--font-3);
+}
+
+.enable .text {
+    color: var(--color-dark);
+}  
+
+.disable .text {
+    color: var(--font-color-dark)
+}
