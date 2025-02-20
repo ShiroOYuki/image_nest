@@ -21,8 +21,8 @@ export const metadata = {
         images: [
             {
                 url: OPENGRAPH_URL + "/cover_small.jpg",
-                width: 367,
-                height: 367
+                width: 120,
+                height: 120
             },
             {
                 url: OPENGRAPH_URL + "/cover.jpg",
