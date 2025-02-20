@@ -21,29 +21,25 @@ export function WeatherCardFactory({
     const [weatherData, setWeatherData] = useState<Forecast | null>(null);
     const [loading, setLoading] = useState(true);
     const [isError, setIsError] = useState(false);
+    const fetchWeatherApi = () => {
+        fetchData(coordinate, days)
+        .then((data: Forecast) => {
+            setWeatherData(data);
+            setIsError(false);
+        })
+        .catch((e: Error) => {
+            console.log(e.message);
+            setIsError(true);
+        })
+        .finally(() => {
+            setLoading(false);
+        });
+    }
 
     useEffect(() => {
-        fetchData(
-            setWeatherData,
-            setLoading,
-            setIsError,
-            {
-                coordinate: coordinate,
-                days: days
-            }
-        );
+        fetchWeatherApi();
 
-        const updateCard = setInterval(() => {
-            fetchData(
-                setWeatherData,
-                setLoading,
-                setIsError,
-                {
-                    coordinate: coordinate,
-                    days: days
-                }
-            );
-        }, 10*60*1000);
+        const updateCard = setInterval(fetchWeatherApi, 10*60*1000);
 
         return () => clearInterval(updateCard);
     }, []);

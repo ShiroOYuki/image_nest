@@ -30,14 +30,16 @@ export async function GET(request: NextRequest) {
             key: apiKey,
             q: coordinate,
             days: days,
-            lang: "	zh_tw"
+            lang: "zh_tw"
         });
 
         const resp = await fetch(`${URL}?${payload}`, { headers: headers });
         
         if (!resp.ok) {
             console.error(`[Server] Fetching Error: ${URL}?${payload}`);
+            return NextResponse.json({ error: "Failed to fetch weather data." }, { status: resp.status });
         }
+        
         const data = await resp.json();
         return NextResponse.json(data);
     }
