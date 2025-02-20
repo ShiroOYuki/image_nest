@@ -28,7 +28,7 @@ export function WeatherPlotGraph({
             .then((data: Forecast) => {
                 setData(data);
             })
-            .catch((e: Error) => {
+            .catch(() => {
                 setIsError(true);
             })
             .finally(() => {
