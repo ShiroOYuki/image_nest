@@ -24,11 +24,11 @@ export const metadata = {
                 width: 120,
                 height: 120
             },
-            {
-                url: OPENGRAPH_URL + "/cover.jpg",
-                width: 2400,
-                height: 1600
-            }
+            // {
+            //     url: OPENGRAPH_URL + "/cover.jpg",
+            //     width: 2400,
+            //     height: 1600
+            // }
         ],
         locale: "en_US",
         type: "website"
@@ -46,11 +46,11 @@ export const metadata = {
                 width: 120,
                 height: 120
             },
-            {
-                url: OPENGRAPH_URL + "/cover.jpg",
-                width: 2400,
-                height: 1600
-            }
+            // {
+            //     url: OPENGRAPH_URL + "/cover.jpg",
+            //     width: 2400,
+            //     height: 1600
+            // }
         ],
     }
 };
