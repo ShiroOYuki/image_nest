@@ -17,9 +17,9 @@ export const metadata = {
         siteName: "Image Nest",
         images: [
             {
-                url: "https://image-nest-preview.vercel.app/favicon.ico",
-                width: 256,
-                height: 256
+                url: "https://image-nest-preview.vercel.app/imgs/backgrounds/weather/clear.jpg",
+                width: 2400,
+                height: 1600
             }
         ],
         locale: "zh-tw",
