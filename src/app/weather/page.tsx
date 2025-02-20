@@ -106,6 +106,7 @@ export default function WeatherPage() {
 
         const reloadInterval = setInterval(() => setReloading(true), calcNextUpdateTime());
 
+        console.log(coor);
         return () => clearInterval(reloadInterval);
     }, [reloading]);
 

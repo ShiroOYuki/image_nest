@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { Coordinate } from "../utils/interfaces/api/weatherapi";
-import { defaultCoord } from "../utils/utils";
+
+export const defaultCoord: Coordinate = [22.633, 120.35];
 
 export function useLocation(defaultLocation: Coordinate = defaultCoord) {
     const [coord, setCoord] = useState<Coordinate>(defaultLocation);
