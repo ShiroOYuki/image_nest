@@ -1,7 +1,11 @@
+'use client'
+
 import { Coordinate } from "./interfaces/api/weatherapi";
 
-export function getLocation(): Coordinate {
-    let coordinate: Coordinate = [22.633, 120.35];
+export const defaultCoord: Coordinate = [22.633, 120.35];
+
+function fetchLocation(): Coordinate {
+    let coordinate: Coordinate = defaultCoord;
     const options = {
         enableHighAccuracy: true,
         timeout: 5000,
@@ -19,6 +23,11 @@ export function getLocation(): Coordinate {
 
     navigator.geolocation.getCurrentPosition(success, error, options);
     return coordinate;
+}
+
+export async function getLocation() {
+    const coord = await fetchLocation();
+    return coord;
 }
 
 export function clamp(value: number, min: number, max: number): number {

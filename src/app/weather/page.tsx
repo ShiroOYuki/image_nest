@@ -12,11 +12,11 @@ import SingleHoverPlot from "../components/Graph/SingleHoverPlot/SingleHoverPlot
 import { Forecast } from "../utils/interfaces/api/weatherapi";
 import { fetchData } from "../utils/factory/api/weatherapi/fetchWeather";
 import { weatherDataFactory } from "../utils/factory/api/weatherapi/weatherHelper";
-import { getLocation } from "../utils/utils";
 import { basicWeather } from "../utils/typesAndInterfaces";
 import ClearIconButton from "../components/Buttons/ClearIconButton/ClearIconButton";
 import { useRouter } from "next/navigation";
 import SpinningLoader from "../components/LoadingAnimations/SpinningLoader/SpinningLoader";
+import { useLocation } from "../hooks/useLocation";
 
 function makeWeatherDetailCards(
     currHour: number, 
@@ -86,12 +86,12 @@ export default function WeatherPage() {
     const [weatherData, setWeatherData] = useState<Forecast | null>(null);
     const [loading, setLoading] = useState(true);
     const [reloading, setReloading] = useState(true);
+    const coor = useLocation();
     const router = useRouter();
 
     useEffect(() => {
         if (!weatherData || reloading) {
-            const coor = getLocation();
-            fetchData(coor,2)
+            fetchData(coor, 2)
                 .then((data: Forecast) => {
                     setWeatherData(data);
                 })
@@ -191,9 +191,9 @@ export default function WeatherPage() {
                         />
                     </div>
                 </div>
-                    <div className={`${styles.row} ${styles.detailCards}`}>
-                        {cards}
-                    </div>
+                <div className={`${styles.row} ${styles.detailCards}`}>
+                    {cards}
+                </div>
             </div>
         </BackgroundContainer>
     )

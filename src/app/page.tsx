@@ -9,10 +9,9 @@ import styles from "./page.module.css";
 import mixinStyles from "@/app/shared/styles/mixin.module.css";
 
 import { useRouter } from "next/navigation";
-import { getLocation } from "./utils/utils";
-import { Coordinate } from "./utils/interfaces/api/weatherapi";
 import { WeatherCardFactory } from "./components/Cards/WeatherCard/WeatherCard";
 import SpinningLoader from "./components/LoadingAnimations/SpinningLoader/SpinningLoader";
+import { useLocation } from "./hooks/useLocation";
 
 export default function Page() {
     const router = useRouter();
@@ -22,7 +21,7 @@ export default function Page() {
     const bgs = ["/imgs/backgrounds/bg1.png", "/imgs/backgrounds/bg2.png", "/imgs/backgrounds/bg3.jpg"];
     const [bg, setBg] = useState(0);
     const [changing, setchanging] = useState(false);
-    const [location, setLocation] = useState<Coordinate>([0, 0]);
+    const location = useLocation();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -30,8 +29,6 @@ export default function Page() {
         const bgTimer = setInterval(() => {
             setchanging(true);
         }, 60*1000);
-
-        setLocation(getLocation());
         setLoading(false);
 
         return () => clearInterval(bgTimer);
