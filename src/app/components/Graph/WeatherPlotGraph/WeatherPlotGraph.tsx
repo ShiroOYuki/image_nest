@@ -24,12 +24,16 @@ export function WeatherPlotGraph({
     const [loading, setLoading] = useState(true);
     const [isError, setIsError] = useState(false);
     useEffect(() => {
-        fetchData(
-            setData, 
-            setLoading, 
-            setIsError, 
-            { coordinate: coordinate, days: days }
-        );
+        fetchData(coordinate, days)
+            .then((data: Forecast) => {
+                setData(data);
+            })
+            .catch(() => {
+                setIsError(true);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, []);
 
     if (loading) return <p>Loading...</p>;
