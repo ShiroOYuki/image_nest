@@ -24,14 +24,34 @@ export const metadata = {
                 width: 120,
                 height: 120
             },
-            // {
-            //     url: OPENGRAPH_URL + "/cover.jpg",
-            //     width: 2400,
-            //     height: 1600
-            // }
+            {
+                url: OPENGRAPH_URL + "/cover.jpg",
+                width: 2400,
+                height: 1600
+            }
         ],
         locale: "en_US",
         type: "website"
+    },
+    twitter: {
+        card: "summary",
+        title: "Image Nest",
+        description: "Ciel\'s Dashboard",
+        siteId: '1467726470533754880',
+        creator: '@Ciel',
+        creatorId: '1467726470533754880',
+        images: [
+            {
+                url: OPENGRAPH_URL + "/cover_small.jpg",
+                width: 120,
+                height: 120
+            },
+            {
+                url: OPENGRAPH_URL + "/cover.jpg",
+                width: 2400,
+                height: 1600
+            }
+        ],
     }
 };
 
