@@ -17,7 +17,7 @@ export const metadata = {
         icon: "/imgs/favicon.ico"
     },
     openGraph: {
-        title: webName,
+        title: "Ciel\'s Project",
         description: webDescription,
         url: BASE_URL,
         siteName: webName,
