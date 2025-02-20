@@ -7,17 +7,20 @@ import styles from './layout.module.css'
 const BASE_URL = "https://image-nest-preview.vercel.app";
 const OPENGRAPH_URL = BASE_URL + "/imgs/opengraph";
 
+const webName = 'Image Nest'
+const webDescription = 'A minimalist dashboard that keeps you informed and inspired with time and weather at a glance.'
+
 export const metadata = {
-    title: 'Image Nest',
-    description: 'A minimalist dashboard that keeps you informed and inspired with time and weather at a glance.',
+    title: webName,
+    description: webDescription,
     icons: {
         icon: "/imgs/favicon.ico"
     },
     openGraph: {
-        title: "Image Nest",
-        description: "Ciel\'s Dashboard",
+        title: webName,
+        description: webDescription,
         url: BASE_URL,
-        siteName: "Image Nest",
+        siteName: webName,
         images: [
             {
                 url: OPENGRAPH_URL + "/cover_small.jpg",
@@ -35,8 +38,8 @@ export const metadata = {
     },
     twitter: {
         card: "summary",
-        title: "Image Nest",
-        description: "A minimalist dashboard that keeps you informed and inspired with time and weather at a glance.",
+        title: webName,
+        description: webDescription,
         siteId: '1467726470533754880',
         creator: '@Ciel',
         creatorId: '1467726470533754880',
