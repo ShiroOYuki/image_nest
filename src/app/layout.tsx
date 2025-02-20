@@ -5,7 +5,7 @@ import './page.css'
 import styles from './layout.module.css'
 
 const BASE_URL = "https://image-nest-preview.vercel.app";
-const OPENGRAPH_URL = BASE_URL + "/imgs/backgrounds/opengraph";
+const OPENGRAPH_URL = BASE_URL + "/imgs/opengraph";
 
 export const metadata = {
     title: 'Image Nest',
