@@ -4,7 +4,7 @@ import '@/app/shared/styles/global.css'
 import './page.css'
 import styles from './layout.module.css'
 
-const BASE_URL = "https://image-nest-preview.vercel.app";
+const BASE_URL = "https://image-nest-pi.vercel.app";
 const OPENGRAPH_URL = BASE_URL + "/imgs/opengraph";
 
 const webName = 'Image Nest'
