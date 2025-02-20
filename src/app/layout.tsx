@@ -9,7 +9,7 @@ const OPENGRAPH_URL = BASE_URL + "/imgs/opengraph";
 
 export const metadata = {
     title: 'Image Nest',
-    description: 'Ciel\'s Dashboard',
+    description: 'A minimalist dashboard that keeps you informed and inspired with time and weather at a glance.',
     icons: {
         icon: "/imgs/favicon.ico"
     },
@@ -36,7 +36,7 @@ export const metadata = {
     twitter: {
         card: "summary",
         title: "Image Nest",
-        description: "Ciel\'s Dashboard",
+        description: "A minimalist dashboard that keeps you informed and inspired with time and weather at a glance.",
         siteId: '1467726470533754880',
         creator: '@Ciel',
         creatorId: '1467726470533754880',
