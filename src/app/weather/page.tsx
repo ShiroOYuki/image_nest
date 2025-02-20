@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import SmallWeatherCard from "../components/Cards/SmallWeatherCard/SmallWeatherCard";
 import WeatherDetailCard from "../components/Cards/WeatherDetailCard/WeatherDetailCard";
@@ -17,8 +17,6 @@ import { basicWeather } from "../utils/typesAndInterfaces";
 import ClearIconButton from "../components/Buttons/ClearIconButton/ClearIconButton";
 import { useRouter } from "next/navigation";
 import SpinningLoader from "../components/LoadingAnimations/SpinningLoader/SpinningLoader";
-
-const UPDATE_PER_MINUTE = 5;
 
 function makeWeatherDetailCards(
     currHour: number, 
@@ -44,6 +42,18 @@ function makeWeatherDetailCards(
     return cards;
 }
 
+function calcNextUpdateTime() {
+    const date = new Date();
+    const cs = date.getSeconds();    // Current seconds
+    const cm = date.getMinutes();    // Current minutes
+    const rm = 15 - (cm % 15);       // Minutes remaining until the next 15-minute mark
+
+    // +10: 10-second buffer (e.g., updates at 00:00:10, 00:15:10, 00:30:10, ...)
+    const nextUpdate = (rm * 60 - cs + 10) * 1000;
+    return nextUpdate;
+}
+
+
 export default function WeatherPage() {
     const bgs: {[key in basicWeather]: string} = {
         rain: "/imgs/backgrounds/weather/rain.jpg",
@@ -61,12 +71,17 @@ export default function WeatherPage() {
         timeIndex: undefined
     });
     
-    const handleHoverTemperatureChange = (data: { data: number; timeIndex: number }) => {
-        setCurrTemprature({
-            chanceOfRain: data.data,
-            timeIndex: data.timeIndex
+    const handleHoverTemperatureChange = useCallback((data: { data: number; timeIndex: number }) => {
+        setCurrTemprature((prev) => {
+            if (prev.timeIndex !== data.timeIndex) {
+                return {
+                    chanceOfRain: data.data,
+                    timeIndex: data.timeIndex
+                }
+            }
+            return prev;
         });
-    };
+    }, []);
     
     const [weatherData, setWeatherData] = useState<Forecast | null>(null);
     const [loading, setLoading] = useState(true);
@@ -74,24 +89,22 @@ export default function WeatherPage() {
     const router = useRouter();
 
     useEffect(() => {
-        const currentMinute = new Date().getMinutes();
-
-        if (!weatherData || (reloading && currentMinute <= UPDATE_PER_MINUTE)) {
+        if (!weatherData || reloading) {
             const coor = getLocation();
-            fetchData(
-                setWeatherData, 
-                setLoading, 
-                null, 
-                {
-                    coordinate: coor, 
-                    days: 2
-                }
-            ).then(() => {
-                setReloading(false);
-            });
+            fetchData(coor,2)
+                .then((data: Forecast) => {
+                    setWeatherData(data);
+                })
+                .catch((e: Error) => {
+                    console.log(e.message);
+                })
+                .finally(() => {
+                    setLoading(false);
+                    setReloading(false);
+                });
         }
-        
-        const reloadInterval = setInterval(() => setReloading(true), UPDATE_PER_MINUTE*60*1000);
+
+        const reloadInterval = setInterval(() => setReloading(true), calcNextUpdateTime());
 
         return () => clearInterval(reloadInterval);
     }, [reloading]);
@@ -133,12 +146,12 @@ export default function WeatherPage() {
         return { currTemp, hourlyTemp, updateTime, location, weatherCategory, cards};
     }, [weatherData]);
     
-    const hoveredTime = currTemprature.timeIndex?.toString().padStart(2, "0");
     useEffect(() => {
+        const hoveredTime = currTemprature.timeIndex?.toString().padStart(2, "0");
         if (hoveredTime) {
-            setDisplayTime(hoveredTime + ":00");
+            setDisplayTime(`${hoveredTime}:00`);
         }
-    }, [hoveredTime]);
+    }, [currTemprature.timeIndex]);
 
     if (loading) return <SpinningLoader />;
 
