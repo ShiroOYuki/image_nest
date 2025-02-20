@@ -6,7 +6,7 @@ import styles from './layout.module.css'
 
 export const metadata = {
     title: 'Image Nest',
-    description: 'Hello!',
+    description: 'Ciel\'s Dashboard',
     icons: {
         icon: "/imgs/favicon.ico"
     }
