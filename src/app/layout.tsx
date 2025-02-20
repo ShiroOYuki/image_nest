@@ -4,6 +4,9 @@ import '@/app/shared/styles/global.css'
 import './page.css'
 import styles from './layout.module.css'
 
+const BASE_URL = "https://image-nest-preview.vercel.app";
+const OPENGRAPH_URL = BASE_URL + "/imgs/backgrounds/opengraph";
+
 export const metadata = {
     title: 'Image Nest',
     description: 'Ciel\'s Dashboard',
@@ -13,11 +16,16 @@ export const metadata = {
     openGraph: {
         title: "Image Nest",
         description: "Ciel\'s Dashboard",
-        url: "https://image-nest-preview.vercel.app",
+        url: BASE_URL,
         siteName: "Image Nest",
         images: [
             {
-                url: "https://image-nest-preview.vercel.app/imgs/backgrounds/weather/clear.jpg",
+                url: OPENGRAPH_URL + "/cover_small.jpg",
+                width: 367,
+                height: 367
+            },
+            {
+                url: OPENGRAPH_URL + "/cover.jpg",
                 width: 2400,
                 height: 1600
             }
