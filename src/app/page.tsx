@@ -14,6 +14,9 @@ import SpinningLoader from "./components/LoadingAnimations/SpinningLoader/Spinni
 import { useLocation } from "./hooks/useLocation";
 
 export default function Page() {
+    const url = process.env.NEXT_PUBLIC_API_URL;
+    console.log(url);
+
     const router = useRouter();
     const [brightness, setBrightness] = useState<number>(0.6);
     const nowBrightness = useRef(brightness);
