@@ -21,7 +21,7 @@ export default function Page() {
     const bgs = ["/imgs/backgrounds/bg1.png", "/imgs/backgrounds/bg2.png", "/imgs/backgrounds/bg3.jpg"];
     const [bg, setBg] = useState(0);
     const [changing, setchanging] = useState(false);
-    const location = useLocation();
+    const [location, locationLoading] = useLocation();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -48,7 +48,7 @@ export default function Page() {
         }
     }, [changing]);
 
-    if (loading) return <SpinningLoader />;
+    if (loading || locationLoading) return <SpinningLoader />;
 
     const weatherButton = (
         <ClearIconButton
@@ -60,18 +60,6 @@ export default function Page() {
             stroke="white"
         ></ClearIconButton>
     );
-
-    const chartButton = (
-        <ClearIconButton
-            width={50}
-            height={50}
-            src="/imgs/icons/chart-line.svg"
-            onClick={() => router.push("/chart")}
-            className={styles.linkBtn}
-            stroke="white"
-        ></ClearIconButton>
-    );
-
 
     const changeImageButton = (
         <ClearIconButton
@@ -89,7 +77,6 @@ export default function Page() {
             <div className={styles.header}>
                 <div className={styles.left}>
                     {weatherButton}
-                    {chartButton}
                 </div>
                 <div className={styles.center}>
                     <Calender1 />

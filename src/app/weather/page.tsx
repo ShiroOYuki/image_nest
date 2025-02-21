@@ -86,11 +86,11 @@ export default function WeatherPage() {
     const [weatherData, setWeatherData] = useState<Forecast | null>(null);
     const [loading, setLoading] = useState(true);
     const [reloading, setReloading] = useState(true);
-    const coor = useLocation();
+    const [coor, coorLoading] = useLocation();
     const router = useRouter();
 
     useEffect(() => {
-        if (!weatherData || reloading) {
+        if ((!weatherData || reloading) && !coorLoading) {
             fetchData(coor, 2)
                 .then((data: Forecast) => {
                     setWeatherData(data);
@@ -102,13 +102,14 @@ export default function WeatherPage() {
                     setLoading(false);
                     setReloading(false);
                 });
+
+            console.log(coor);
         }
 
         const reloadInterval = setInterval(() => setReloading(true), calcNextUpdateTime());
 
-        console.log(coor);
         return () => clearInterval(reloadInterval);
-    }, [reloading]);
+    }, [reloading, coor, coorLoading]);
 
     const [displayTime, setDisplayTime] = useState("--:--");
     const {

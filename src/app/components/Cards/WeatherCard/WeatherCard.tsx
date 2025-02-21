@@ -23,17 +23,17 @@ export function WeatherCardFactory({
     const [isError, setIsError] = useState(false);
     const fetchWeatherApi = () => {
         fetchData(coordinate, days)
-        .then((data: Forecast) => {
-            setWeatherData(data);
-            setIsError(false);
-        })
-        .catch((e: Error) => {
-            console.log(e.message);
-            setIsError(true);
-        })
-        .finally(() => {
-            setLoading(false);
-        });
+            .then((data: Forecast) => {
+                setWeatherData(data);
+                setIsError(false);
+            })
+            .catch((e: Error) => {
+                console.log(e.message);
+                setIsError(true);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }
 
     useEffect(() => {
