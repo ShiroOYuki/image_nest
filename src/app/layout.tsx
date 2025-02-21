@@ -4,6 +4,9 @@ import '@/app/shared/styles/global.css'
 import './page.css'
 import styles from './layout.module.css'
 
+const url = process.env.NEXT_PUBLIC_API_URL;
+console.log(url);
+
 const BASE_URL = "https://image-nest-pi.vercel.app";
 const OPENGRAPH_URL = BASE_URL + "/imgs/opengraph";
 
