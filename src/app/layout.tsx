@@ -4,11 +4,11 @@ import '@/app/shared/styles/global.css'
 import './page.css'
 import styles from './layout.module.css'
 
-const BASE_URL = "https://image-nest-pi.vercel.app";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 const OPENGRAPH_URL = BASE_URL + "/imgs/opengraph";
 
-const webName = 'Image Nest'
-const webDescription = 'A minimalist dashboard that keeps you informed and inspired with time and weather at a glance.'
+const webName = process.env.NEXT_PUBLIC_WEB_NAME;
+const webDescription = process.env.NEXT_PUBLIC_WEB_DESCRIPTION;
 
 export const metadata = {
     title: webName,
@@ -26,12 +26,7 @@ export const metadata = {
                 url: OPENGRAPH_URL + "/cover_small.jpg",
                 width: 120,
                 height: 120
-            },
-            // {
-            //     url: OPENGRAPH_URL + "/cover.jpg",
-            //     width: 2400,
-            //     height: 1600
-            // }
+            }
         ],
         locale: "en_US",
         type: "website"
@@ -48,12 +43,7 @@ export const metadata = {
                 url: OPENGRAPH_URL + "/cover_small.jpg",
                 width: 120,
                 height: 120
-            },
-            // {
-            //     url: OPENGRAPH_URL + "/cover.jpg",
-            //     width: 2400,
-            //     height: 1600
-            // }
+            }
         ],
     }
 };
