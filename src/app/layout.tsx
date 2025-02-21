@@ -7,8 +7,8 @@ import styles from './layout.module.css'
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 const OPENGRAPH_URL = BASE_URL + "/imgs/opengraph";
 
-const webName = process.env.NEXT_PUBLIC_WEB_NAME;
-const webDescription = process.env.NEXT_PUBLIC_WEB_DESCRIPTION;
+const webName = 'Image Nest'
+const webDescription = 'A minimalist dashboard that keeps you informed and inspired with time and weather at a glance.'
 
 export const metadata = {
     title: webName,
