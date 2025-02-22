@@ -3,18 +3,21 @@
 import { ReactSVG } from "react-svg";
 import styles from "./SmallWeatherCard.module.css";
 import { basicWeather } from "@/app/utils/typesAndInterfaces";
+import { MouseEventHandler } from "react";
 
 
 interface SmallWeatherCardProps {
     className?: string;
     weather: basicWeather;
     temp: string;
+    onClick?: MouseEventHandler<HTMLDivElement>
 }
 
 export default function SmallWeatherCard({
-    className="",
     weather,
-    temp
+    temp,
+    className="",
+    onClick=undefined
 }: SmallWeatherCardProps) {
     const icons: {[key in basicWeather]: string} = {
         rain: "/imgs/icons/weather/rain.svg",
@@ -25,7 +28,10 @@ export default function SmallWeatherCard({
     };
 
     return (
-        <div className={`${styles.container} ${className}`}>
+        <div 
+            className={`${styles.container} ${className}`}
+            onClick={onClick}
+        >
             <div className={styles.left}>
                 <ReactSVG 
                     src={icons[weather]}
