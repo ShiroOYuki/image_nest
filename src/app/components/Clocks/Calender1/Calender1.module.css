@@ -4,7 +4,7 @@
     justify-content: center;
 
     gap: 16px;
-    width: 600px;
+    width: 100%;
 }
 
 .symbol, .date {

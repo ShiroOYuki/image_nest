@@ -32,4 +32,29 @@
     text-transform: uppercase;
 }
 
+@media (max-width: 480px) {
+    .temp {
+        font-size: var(--font-m);
+    }
+
+    .head {
+        align-items: center;
+    }
+
+    .left {
+        display: flex;
+        width: min-content;
+        align-items: center;
+    }
+
+    .icon, .icon svg{
+        height: 25px;
+        width: 25px;
+    }
+
+    .weatherType {
+        display: none;
+    }
+}
+
 
