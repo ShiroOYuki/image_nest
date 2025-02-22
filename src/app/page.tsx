@@ -49,7 +49,7 @@ export default function Page() {
     }, [changing]);
 
     if (loading || locationLoading) return <SpinningLoader />;
-
+    
     const weatherButton = (
         <ClearIconButton
             width={50}
@@ -79,7 +79,7 @@ export default function Page() {
                     {weatherButton}
                 </div>
                 <div className={styles.center}>
-                    <Calender1 />
+                    <Calender1 className={styles.calender} />
                 </div>
                 <div className={styles.right}>
                     {changeImageButton}
@@ -87,7 +87,7 @@ export default function Page() {
                         type="range" 
                         name="brightness" 
                         id={styles.brightness} 
-                        className={mixinStyles.rounded}
+                        className={`${mixinStyles.rounded} ${styles.lightnessController}`}
                         min="0" 
                         max="1" 
                         step="0.01" 
@@ -100,7 +100,7 @@ export default function Page() {
                 </div>
             </div>
             <div className={styles.body}>
-                <Clock1 />
+                <Clock1 className={styles.clock} />
             </div>
             <div className={styles.footer}>
                 <div className={styles.left}></div>
@@ -109,11 +109,13 @@ export default function Page() {
                         type="temperature"
                         coordinate={location}
                         days={1}
+                        className={styles.weatherCard}
                     />
                     <WeatherCardFactory 
                         type="chanceOfRain"
                         coordinate={location}
                         days={1}
+                        className={styles.weatherCard}
                     />
                 </div>
                 <div className={styles.right}>

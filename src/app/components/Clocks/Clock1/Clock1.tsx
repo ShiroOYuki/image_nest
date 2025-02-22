@@ -11,7 +11,7 @@ function getTime(): string[] {
     return [h, m, s];
 }
 
-export default function Clock1() {
+export default function Clock1({className=""}: {className?: string}) {
     const [time, setTime] = useState<string[]>(getTime()); // h, m, s
     const [loading, setLoading] = useState(true);
 
@@ -27,7 +27,7 @@ export default function Clock1() {
     if (loading) return <p>Loading...</p>
 
     return (
-        <div className={styles.clock}>
+        <div className={`${styles.clock} ${className}`}>
             <span className={styles.hour}>{time[0]}</span>
             <span className={styles.symbol}>:</span>
             <span className={styles.minute}>{time[1]}</span>

@@ -2,31 +2,23 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import SmallWeatherCard from "../components/Cards/SmallWeatherCard/SmallWeatherCard";
 import WeatherDetailCard from "../components/Cards/WeatherDetailCard/WeatherDetailCard";
-import CalenderTitle from "../components/Clocks/CalenderTitle/CalenderTitle";
-import BackgroundContainer from "../components/Containers/BackgroundContainer/BackgroundContainer";
-import styles from "./weatherPage.module.css";
-import SingleHoverPlot from "../components/Graph/SingleHoverPlot/SingleHoverPlot";
-
 import { Forecast } from "../utils/interfaces/api/weatherapi";
 import { fetchData } from "../utils/factory/api/weatherapi/fetchWeather";
 import { weatherDataFactory } from "../utils/factory/api/weatherapi/weatherHelper";
 import { basicWeather } from "../utils/typesAndInterfaces";
-import ClearIconButton from "../components/Buttons/ClearIconButton/ClearIconButton";
-import { useRouter } from "next/navigation";
 import SpinningLoader from "../components/LoadingAnimations/SpinningLoader/SpinningLoader";
 import { useLocation } from "../hooks/useLocation";
+import { WeatherLayoutFactory } from "../layouts/weather/WeatherLayoutFactory";
 
 function makeWeatherDetailCards(
-    currHour: number, 
     hourlyTemp: number[], 
     hourlyCategory: basicWeather[],
     hourlyChanceOfRain: number[],
     hourlyFeelslike: number[]
 ) {
     const cards = [];
-    for(let i=currHour; i<currHour+8; i++) {
+    for(let i=0; i<hourlyTemp.length; i++) {
         cards.push(
             <WeatherDetailCard
                 time={`${(i%24).toString().padStart(2, "0")}:00`}
@@ -55,6 +47,12 @@ function calcNextUpdateTime() {
 
 
 export default function WeatherPage() {
+    const [weatherData, setWeatherData] = useState<Forecast | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [reloading, setReloading] = useState(true);
+    const [displayTime, setDisplayTime] = useState("--:--");
+    const [coor, coorLoading] = useLocation();
+
     const bgs: {[key in basicWeather]: string} = {
         rain: "/imgs/backgrounds/weather/rain.jpg",
         clear: "/imgs/backgrounds/weather/clear.jpg",
@@ -63,7 +61,7 @@ export default function WeatherPage() {
         unknown: ""
     };
 
-    const [currTemprature, setCurrTemprature] = useState<{
+    const [chanceOfRain, setChanceOfRain] = useState<{
         chanceOfRain?: number, 
         timeIndex?: number | string
     }>({
@@ -72,7 +70,7 @@ export default function WeatherPage() {
     });
     
     const handleHoverTemperatureChange = useCallback((data: { data: number; timeIndex: number }) => {
-        setCurrTemprature((prev) => {
+        setChanceOfRain((prev) => {
             if (prev.timeIndex !== data.timeIndex) {
                 return {
                     chanceOfRain: data.data,
@@ -82,12 +80,6 @@ export default function WeatherPage() {
             return prev;
         });
     }, []);
-    
-    const [weatherData, setWeatherData] = useState<Forecast | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [reloading, setReloading] = useState(true);
-    const [coor, coorLoading] = useLocation();
-    const router = useRouter();
 
     useEffect(() => {
         if ((!weatherData || reloading) && !coorLoading) {
@@ -111,7 +103,6 @@ export default function WeatherPage() {
         return () => clearInterval(reloadInterval);
     }, [reloading, coor, coorLoading]);
 
-    const [displayTime, setDisplayTime] = useState("--:--");
     const {
         currTemp,  // Current
         hourlyTemp, // Next 48 hours
@@ -136,67 +127,34 @@ export default function WeatherPage() {
         const weatherCategory = weatherDataFactory(weatherData, "currCategory");
         const updateTime = weatherDataFactory(weatherData, "updateTime");
         const location = weatherDataFactory(weatherData, "location");
-    
-        const ct = updateTime.split(" ")[1] || "00:00";
-        const currHour = parseInt(ct.split(":")[0]);
 
         const hourlyCategory = weatherDataFactory(weatherData, "hourlyCategory");
         const hourlyChanceOfRain = weatherDataFactory(weatherData, "chanceOfRain");
 
-        const cards = makeWeatherDetailCards(currHour, hourlyTemp, hourlyCategory, hourlyChanceOfRain, hourlyFeelslike);
+        const cards = makeWeatherDetailCards(hourlyTemp, hourlyCategory, hourlyChanceOfRain, hourlyFeelslike);
     
         return { currTemp, hourlyTemp, updateTime, location, weatherCategory, cards};
     }, [weatherData]);
     
     useEffect(() => {
-        const hoveredTime = currTemprature.timeIndex?.toString().padStart(2, "0");
+        const hoveredTime = chanceOfRain.timeIndex?.toString().padStart(2, "0");
         if (hoveredTime) {
             setDisplayTime(`${hoveredTime}:00`);
         }
-    }, [currTemprature.timeIndex]);
+    }, [chanceOfRain.timeIndex]);
 
     if (loading) return <SpinningLoader />;
 
-    return (
-        <BackgroundContainer img={bgs[weatherCategory]} className={styles.container}>
-            <div className={styles.head}>
-                <div className={styles.row}>
-                    <CalenderTitle location={location[1]} datetime={updateTime} className={styles.title}/>
-                    <ClearIconButton 
-                        width={50}
-                        height={50}
-                        src="/imgs/icons/external-link.svg"
-                        onClick={() => window.open("https://www.weatherapi.com/weather", "_blank")}
-                        className={styles.externalLinkBtn}
-                    />
-                </div>
-                <ClearIconButton 
-                    width={50}
-                    height={50}
-                    src="/imgs/icons/home.svg"
-                    onClick={() => router.push("/")}
-                    className={styles.linkBtn}
-                    stroke="white"
-                />
-            </div>
-            <div className={styles.bottom}>
-                <div className={styles.row}>
-                    <SmallWeatherCard weather={weatherCategory} temp={currTemp + "°"} />
-                    <div className={styles.plotContainer}>
-                        <p className={styles.plotValue}>
-                            {displayTime} | {currTemprature.chanceOfRain?.toFixed(1) || "--"}°C
-                        </p>
-                        <SingleHoverPlot
-                            className={styles.tempChart}
-                            data={hourlyTemp.slice(0, 24)}
-                            onHoverTemperatureChange={handleHoverTemperatureChange}
-                        />
-                    </div>
-                </div>
-                <div className={`${styles.row} ${styles.detailCards}`}>
-                    {cards}
-                </div>
-            </div>
-        </BackgroundContainer>
-    )
+    return <WeatherLayoutFactory
+        bg={bgs[weatherCategory]}
+        updateTime={updateTime}
+        displayTime={displayTime}
+        location={location}
+        currTemp={currTemp}
+        hourlyTemp={hourlyTemp}
+        weatherCategory={weatherCategory}
+        cards={cards}
+        chanceOfRain={chanceOfRain}
+        handleHoverTemperatureChange={handleHoverTemperatureChange}
+    />;
 }

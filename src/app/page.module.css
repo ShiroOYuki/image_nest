@@ -4,8 +4,11 @@
 
     align-items: center;
     padding: 8px;
+    background-position: center;
 
     transition: background-color 1s linear;
+    width: 100%;
+    overflow: hidden;
 }
 
 .header,
@@ -77,34 +80,81 @@
 }
 
 /* slider */
-
-#brightness {
-    writing-mode: vertical-lr;
-    margin-left: 16px;
-    margin-right: 16px;
+@media (min-width: 769px) {
+    #brightness {
+        writing-mode: vertical-lr;
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+    
+    #brightness,
+    #brightness::-webkit-slider-thumb,
+    #brightness::-webkit-slider-runnable-track {
+        -webkit-appearance: none;
+    }
+    
+    #brightness::-webkit-slider-thumb {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: rgb(0, 182, 243);
+        transform: translateX(-6px);
+    }
+    
+    #brightness::-webkit-slider-thumb:hover {
+        background-color: rgb(69, 206, 252);
+    }
+    
+    #brightness::-webkit-slider-runnable-track {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255);
+    }
 }
 
-#brightness,
-#brightness::-webkit-slider-thumb,
-#brightness::-webkit-slider-runnable-track {
-    -webkit-appearance: none;
+@media (max-width: 768px) {
+    .linkBtn:hover {
+        transform: none;
+    }
+
+    .linkBtn:active {
+        transform: scale(1.2);
+    }
+
+    .lightnessController {
+        display: none;
+    }
+
+    .weatherCard {
+        display: none !important;
+    }
+
+    .footer {
+        height: min-content;
+    }
 }
 
-#brightness::-webkit-slider-thumb {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background-color: rgb(0, 182, 243);
-    transform: translateX(-6px);
-}
+/* Phone */
+@media (max-width: 480px) {
+    .header {
+        height: max-content;
+    }
+    
+    .header .left {
+        flex: 0;
+    }
 
-#brightness::-webkit-slider-thumb:hover {
-    background-color: rgb(69, 206, 252);
-}
+    .header .right {
+        flex: 0;
+        width: min-content;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
-#brightness::-webkit-slider-runnable-track {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255);
+    .header .center .calender {
+        height: 50px;
+        text-align: center;
+    }
 }

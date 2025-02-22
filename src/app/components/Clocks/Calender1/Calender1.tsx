@@ -12,7 +12,7 @@ function getDate(): string[] {
     return [y, m, d];
 }
 
-export default function Calender1() {
+export default function Calender1({className=""}: {className?: string}) {
     const [date, setDate] = useState<string[]>(getDate()); // y, m, d
     const [loading, setLoading] = useState(true);
 
@@ -28,7 +28,7 @@ export default function Calender1() {
     if (loading) return <p>Loading...</p>
 
     return (
-        <div className={styles.calender}>
+        <div className={`${styles.calender} ${className}`}>
             <span className={styles.date}>{date[0]}</span>
             <span className={styles.symbol}>/</span>
             <span className={styles.date}>{date[1]}</span>

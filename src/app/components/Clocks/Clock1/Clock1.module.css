@@ -36,3 +36,25 @@
     width: 60px;
     font-size: 3rem;
 }
+
+@media (max-width: 480px) {
+    .clock {
+        height: min-content;
+    }
+
+    .hour,
+    .minute {
+        width: 100px;
+        font-size: 5rem;
+    }
+
+    .symbol {
+        width: 25px;
+        font-size: 3rem;
+    }
+
+    .second {
+        width: 30px;
+        font-size: 1.5rem;
+    }
+}

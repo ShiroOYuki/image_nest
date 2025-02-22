@@ -11,12 +11,15 @@ interface CardType {
     type: "temperature" | "chanceOfRain" | "default";
 }
 
-interface WeatherCardFactoryProps extends ForecastRequiredProps, CardType {};
+interface WeatherCardFactoryProps extends ForecastRequiredProps, CardType {
+    className?: string;
+};
 
 export function WeatherCardFactory({
     type="default",
     coordinate,
-    days=1
+    days=1,
+    className=""
 }: WeatherCardFactoryProps) {
     const [weatherData, setWeatherData] = useState<Forecast | null>(null);
     const [loading, setLoading] = useState(true);
@@ -44,8 +47,8 @@ export function WeatherCardFactory({
         return () => clearInterval(updateCard);
     }, []);
 
-    if (loading) return <p>Loading...</p>;
-    if (!weatherData) return <p>Error...</p>;
+    if (loading) return <p className={className}>Loading...</p>;
+    if (!weatherData) return <p className={className}>Error...</p>;
     
     let data = [2, 2];
     let title: string | number = "--";
@@ -65,6 +68,7 @@ export function WeatherCardFactory({
                 title={title}
                 locationCity={location[0]}
                 locationRegion={location[1]}
+                className={className}
             />
 
         case "chanceOfRain":
@@ -81,6 +85,7 @@ export function WeatherCardFactory({
                 title={title}
                 locationCity={location[0]}
                 locationRegion={location[1]}
+                className={className}
             />
     }
 }
@@ -90,6 +95,7 @@ interface WeatherCardProps extends PlotGraphProps, CardType {
     locationCity?: string;
     locationRegion?: string;
     iconColor?: "white" | "black";
+    className?: string;
 }
 
 /**
@@ -105,14 +111,15 @@ function WeatherCard({
     locationRegion="",
     iconColor="white",
     padding=10,
-    color="white"
+    color="white",
+    className=""
 }: WeatherCardProps) {
     let titleRow = <p className={styles.title}>{title}</p>;
     if (type === "chanceOfRain") titleRow = <p className={`${styles.title} ${styles.popTitle}`}>{title}</p>
     if (type === "temperature") titleRow = <p className={`${styles.title} ${styles.temperatureTitle}`}>{title}</p>
 
     return (
-        <div className={`${styles.container} `}>
+        <div className={`${styles.container} ${className}`}>
             <div className={styles.info}>
                 <div className={styles.location}>
                     <ReactSVG 
