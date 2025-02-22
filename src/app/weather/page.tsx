@@ -10,6 +10,7 @@ import { basicWeather } from "../utils/typesAndInterfaces";
 import SpinningLoader from "../components/LoadingAnimations/SpinningLoader/SpinningLoader";
 import { useLocation } from "../hooks/useLocation";
 import { WeatherLayoutFactory } from "../layouts/weather/WeatherLayoutFactory";
+import usePreloadBackground from "../hooks/usePreloadBackground";
 
 function makeWeatherDetailCards(
     hourlyTemp: number[], 
@@ -61,6 +62,8 @@ export default function WeatherPage() {
         unknown: ""
     };
 
+    usePreloadBackground(Object.values(bgs));
+
     const [chanceOfRain, setChanceOfRain] = useState<{
         chanceOfRain?: number, 
         timeIndex?: number | string
@@ -109,7 +112,8 @@ export default function WeatherPage() {
         updateTime,
         location,
         weatherCategory,
-        cards
+        cards,
+        hourlyCategory
     } = useMemo(() => {
         if (!weatherData) return {
             currTemp: 0,
@@ -118,7 +122,8 @@ export default function WeatherPage() {
             updateTime: "",
             location: [],
             weatherCategory: "unknown" as basicWeather,
-            cards: []
+            cards: [],
+            hourlyCategory: ["unknown" as basicWeather] 
         };
     
         const hourlyTemp = weatherDataFactory(weatherData, "temperature");
@@ -133,7 +138,7 @@ export default function WeatherPage() {
 
         const cards = makeWeatherDetailCards(hourlyTemp, hourlyCategory, hourlyChanceOfRain, hourlyFeelslike);
     
-        return { currTemp, hourlyTemp, updateTime, location, weatherCategory, cards};
+        return { currTemp, hourlyTemp, updateTime, location, weatherCategory, cards, hourlyCategory};
     }, [weatherData]);
     
     useEffect(() => {
@@ -146,13 +151,14 @@ export default function WeatherPage() {
     if (loading) return <SpinningLoader />;
 
     return <WeatherLayoutFactory
-        bg={bgs[weatherCategory]}
+        bgs={bgs}
         updateTime={updateTime}
         displayTime={displayTime}
         location={location}
         currTemp={currTemp}
         hourlyTemp={hourlyTemp}
         weatherCategory={weatherCategory}
+        hourlyCategory={hourlyCategory}
         cards={cards}
         chanceOfRain={chanceOfRain}
         handleHoverTemperatureChange={handleHoverTemperatureChange}

@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { WeatherCardFactory } from "./components/Cards/WeatherCard/WeatherCard";
 import SpinningLoader from "./components/LoadingAnimations/SpinningLoader/SpinningLoader";
 import { useLocation } from "./hooks/useLocation";
+import usePreloadBackground from "./hooks/usePreloadBackground";
 
 export default function Page() {
     const router = useRouter();
@@ -23,6 +24,7 @@ export default function Page() {
     const [changing, setchanging] = useState(false);
     const [location, locationLoading] = useLocation();
     const [loading, setLoading] = useState(true);
+    usePreloadBackground(bgs);
 
     useEffect(() => {
         // auto change background per 60s

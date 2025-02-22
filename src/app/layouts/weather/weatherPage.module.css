@@ -93,4 +93,8 @@
     .detailCards {
         background: none;
     }
+
+    .container {
+        background-position: center;
+    }
 }

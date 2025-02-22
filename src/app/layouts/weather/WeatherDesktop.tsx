@@ -11,7 +11,7 @@ import SingleHoverPlot from "@/app/components/Graph/SingleHoverPlot/SingleHoverP
 import { weatherLayoutProps } from "./sharedInterface";
 
 export default function WeatherDesktopLayout({
-    bg,
+    bgs,
     location,
     updateTime,
     weatherCategory,
@@ -26,7 +26,7 @@ export default function WeatherDesktopLayout({
     const cHour = new Date().getHours();
 
     return (
-        <BackgroundContainer img={bg} className={styles.container}>
+        <BackgroundContainer img={bgs[weatherCategory]} className={styles.container}>
             <div className={styles.head}>
                 <div className={styles.row}>
                     <CalenderTitle location={location[1]} datetime={updateTime} className={styles.title}/>

@@ -71,10 +71,22 @@
     width: 100%;
     height: auto;
     z-index: 100;
-    opacity: 30%;
+    opacity: 0%;
+    animation: fadeIn 1s ease-out forwards;
 }
 
 .bgIcon > div {
     width: 100%;
     height: 100%;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0%;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 30%;
+        transform: translateY(0px);
+    }
 }

@@ -13,8 +13,9 @@ import { useEffect, useState } from "react";
 import SpinningLoader from "@/app/components/LoadingAnimations/SpinningLoader/SpinningLoader";
 
 export default function WeatherMobileLayout({
-    bg,
+    bgs,
     weatherCategory,
+    hourlyCategory,
     currTemp,
     chanceOfRain,
     hourlyTemp,
@@ -32,7 +33,7 @@ export default function WeatherMobileLayout({
     if (loading) return <SpinningLoader />
 
     return (
-        <BackgroundContainer img={bg} className={sharedStyles.container}>
+        <BackgroundContainer img={bgs[hourlyCategory[chanceOfRain.timeIndex as number]]} className={sharedStyles.container}>
             <div className={sharedStyles.head}>
                 <SmallWeatherCard weather={weatherCategory} temp={currTemp + "°"} className={styles.weatherTitle}/>
                 <ClearIconButton 
@@ -44,10 +45,10 @@ export default function WeatherMobileLayout({
                     stroke="white"
                 />
             </div>
+            <div className={`${sharedStyles.row} ${sharedStyles.detailCards}`}>
+                {cards[chanceOfRain.timeIndex as number]}
+            </div>
             <div className={sharedStyles.bottom}>
-                <div className={`${sharedStyles.row} ${sharedStyles.detailCards}`}>
-                    {cards[chanceOfRain.timeIndex as number]}
-                </div>
                 <div className={sharedStyles.row}>
                     <div className={sharedStyles.plotContainer}>
                         <SingleHoverPlot
