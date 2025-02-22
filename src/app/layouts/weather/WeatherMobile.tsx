@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 // components
 import ClearIconButton from "@/app/components/Buttons/ClearIconButton/ClearIconButton";
 import SmallWeatherCard from "@/app/components/Cards/SmallWeatherCard/SmallWeatherCard";
-import CalenderTitle from "@/app/components/Clocks/CalenderTitle/CalenderTitle";
 import BackgroundContainer from "@/app/components/Containers/BackgroundContainer/BackgroundContainer";
 import SingleHoverPlot from "@/app/components/Graph/SingleHoverPlot/SingleHoverPlot";
 import { weatherLayoutProps } from "./sharedInterface";

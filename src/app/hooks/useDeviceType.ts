@@ -14,7 +14,7 @@ export default function useDeviceType() {
     useEffect(() => {
         function handleResize() {
             const width = window.innerWidth;
-            for(let [k, v] of Object.entries(breakPoints)) {
+            for(const [k, v] of Object.entries(breakPoints)) {
                 if (width <= v) {
                     setDeviceType(k as keyof typeof breakPoints);
                     break;
