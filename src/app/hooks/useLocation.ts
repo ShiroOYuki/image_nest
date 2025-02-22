@@ -22,9 +22,12 @@ export function useLocation(defaultLocation: Coordinate = defaultCoord): [Coordi
                 setCoord([coords.latitude, coords.longitude]);
                 setLoading(false);
             },
-            () => {
+            (e: unknown) => {
                 setLoading(false);
                 setError(true);
+                console.log("Fetching location error.");
+                if (e instanceof Error) console.log(e.message);
+                else console.log(e);
             },
             options
         )
