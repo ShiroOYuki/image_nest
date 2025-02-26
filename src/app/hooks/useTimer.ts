@@ -1,6 +1,6 @@
 'use client'
 
-import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 
 export default function useTimer(totalTime: number): [number, Dispatch<SetStateAction<number>>, boolean, Dispatch<SetStateAction<boolean>>, boolean, () => void] {
     const [ct, setCt] = useState(0);

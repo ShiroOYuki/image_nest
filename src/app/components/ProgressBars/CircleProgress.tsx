@@ -1,6 +1,4 @@
-import { ReactSVG } from "react-svg";
 import styles from "./CircleProgress.module.css";
-import { Colors } from "../Graph/PlotVariables";
 
 interface CircleProgressProps {
     r: number;

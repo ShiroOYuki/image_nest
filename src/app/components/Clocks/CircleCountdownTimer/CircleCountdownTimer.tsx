@@ -102,7 +102,7 @@ export default function CircleCountdownTimer({
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Backspace") {
             e.preventDefault();
-            let input = e.currentTarget.value.replace(/\D/g, "");
+            const input = e.currentTarget.value.replace(/\D/g, "");
             
             setDisplayTime(["0", ...input.padStart(4, "0").slice(0, 3)]);
         }
