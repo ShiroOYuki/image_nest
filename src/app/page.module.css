@@ -153,6 +153,8 @@
 @media (max-width: 480px) {
     .header {
         height: max-content;
+        position: absolute;
+        padding: 8px;
     }
     
     .header .left {
