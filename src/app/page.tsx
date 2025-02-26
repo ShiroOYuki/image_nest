@@ -13,7 +13,7 @@ import { WeatherCardFactory } from "./components/Cards/WeatherCard/WeatherCard";
 import SpinningLoader from "./components/LoadingAnimations/SpinningLoader/SpinningLoader";
 import { useLocation } from "./hooks/useLocation";
 import usePreloadBackground from "./hooks/usePreloadBackground";
-import CircleProgress from "./components/ProgressBars/CircleProgress";
+import TimerLayout from "./layouts/timer/TimerLayout";
 
 export default function Page() {
     const router = useRouter();
@@ -25,6 +25,8 @@ export default function Page() {
     const [changing, setchanging] = useState(false);
     const [location, locationLoading] = useLocation();
     const [loading, setLoading] = useState(true);
+    const [zenMode, setZenMode] = useState(false);
+    const timerLayoutRef = useRef<HTMLDivElement | null>(null);
     usePreloadBackground(bgs);
 
     useEffect(() => {
@@ -75,11 +77,51 @@ export default function Page() {
         ></ClearIconButton>
     );
 
+    const zenButton = (
+        <ClearIconButton
+            width={50}
+            height={50}
+            src="/imgs/icons/hourglass.svg"
+            onClick={() => {
+                setZenMode(true);
+                const fadeIn = setTimeout(() => {
+                    if (timerLayoutRef.current) {
+                        timerLayoutRef.current.classList.remove(styles.hiddenLayout);
+                    }
+                }, 10);
+                return () => clearTimeout(fadeIn);
+            }}
+            className={styles.linkBtn}
+            stroke="white"
+        ></ClearIconButton>
+    );
+
+    const zenCanselButton = (
+        <ClearIconButton
+            width={50}
+            height={50}
+            src="/imgs/icons/arrow-left.svg"
+            onClick={() => {
+                if (timerLayoutRef.current) {
+                    timerLayoutRef.current.classList.add(styles.hiddenLayout);
+                }
+                const fadeOut = setTimeout(() => {
+                    setZenMode(false);
+                }, 1000);
+                return () => clearTimeout(fadeOut);
+            }}
+            className={styles.linkBtn}
+            stroke="white"
+        ></ClearIconButton>
+    );
+
     return (
         <BackgroundContainer img={bgs[bg]} className={styles.container} brightness={brightness}>
+            {zenMode? <TimerLayout closeBtn={zenCanselButton} className={styles.hiddenLayout} ref={timerLayoutRef}/>:<></>}
             <div className={styles.header}>
                 <div className={styles.left}>
                     {weatherButton}
+                    {zenButton}
                 </div>
                 <div className={styles.center}>
                     <Calender1 className={styles.calender} />

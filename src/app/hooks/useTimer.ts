@@ -1,29 +1,35 @@
 'use client'
 
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
 
-export default function useTimer(totalTime: number): [number, boolean, (val: boolean) => void] {
+export default function useTimer(totalTime: number): [number, Dispatch<SetStateAction<number>>, boolean, Dispatch<SetStateAction<boolean>>, boolean, () => void] {
     const [ct, setCt] = useState(0);
-    const runningRef = useRef(false);
+    const [running, setRunning] = useState(false);
+    const [total, setTimer] = useState(totalTime);
+    const [finish, setFinish] = useState(false);
+
+    const resetTimer = useCallback(() => {
+        setCt(0);
+        setRunning(false);
+        setFinish(false);
+    }, []);
 
     useEffect(() => {
-        if (ct >= totalTime) {
+        if (ct >= total) {
             setRunning(false);
+            setFinish(true);
             return
         }
 
-        if (runningRef.current) {
+        if (running) {
             const timer = setTimeout(() => {
                 setCt((prev) => prev+0.1);
             }, 100);
             
             return () => clearTimeout(timer);
         }
-    }, [ct])
+    }, [ct, running])
 
-    const setRunning = (val: boolean) => {
-        runningRef.current = val;
-    }
 
-    return [ct, runningRef.current, setRunning];
+    return [ct, setTimer, running, setRunning, finish, resetTimer];
 }
