@@ -9,6 +9,6 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-blend-mode: darken;
-    transition: background 1s;
+    /* transition: background 1s; */
 }
 

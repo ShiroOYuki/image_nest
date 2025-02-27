@@ -1,6 +1,5 @@
 'use client'
-import sharedStyles from "./weatherPage.module.css";
-import styles from "./weatherMobile.module.css";
+import styles from "./weatherPage.module.css";
 import { useRouter } from "next/navigation";
 
 // components
@@ -33,26 +32,26 @@ export default function WeatherMobileLayout({
     if (loading) return <SpinningLoader />
 
     return (
-        <BackgroundContainer img={bgs[hourlyCategory[chanceOfRain.timeIndex as number]]} className={sharedStyles.container}>
-            <div className={sharedStyles.head}>
+        <BackgroundContainer img={bgs[hourlyCategory[chanceOfRain.timeIndex as number]]} className={styles.container}>
+            <div className={styles.head}>
                 <SmallWeatherCard weather={weatherCategory} temp={currTemp + "°"} className={styles.weatherTitle}/>
                 <ClearIconButton 
                     width={50}
                     height={50}
                     src="/imgs/icons/home.svg"
                     onClick={() => router.push("/")}
-                    className={sharedStyles.linkBtn}
+                    className={styles.linkBtn}
                     stroke="white"
                 />
             </div>
-            <div className={`${sharedStyles.row} ${sharedStyles.detailCards}`}>
+            <div className={`${styles.row} ${styles.detailCards}`}>
                 {cards[chanceOfRain.timeIndex as number]}
             </div>
-            <div className={sharedStyles.bottom}>
-                <div className={sharedStyles.row}>
-                    <div className={sharedStyles.plotContainer}>
+            <div className={styles.bottom}>
+                <div className={styles.row}>
+                    <div className={styles.plotContainer}>
                         <SingleHoverPlot
-                            className={sharedStyles.tempChart}
+                            className={styles.tempChart}
                             data={hourlyTemp.slice(0, 24)}
                             onHoverTemperatureChange={handleHoverTemperatureChange}
                         />

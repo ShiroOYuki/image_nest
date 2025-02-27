@@ -1,11 +1,10 @@
 import useTimer from "@/app/hooks/useTimer";
-import CircleProgress from "../../ProgressBars/CircleProgress";
-import styles from "./CircleCountdownTimer.module.css";
+import styles from "./DigitCountdownTimer.module.css";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { ReactSVG } from "react-svg";
 
 
-interface CircleCountdownTimerProps {
+interface DigitCountdownTimerProps {
     subtitle?: string;
     subtitleOnRunning?: string;
     subtitleOnFinish?: string;
@@ -31,12 +30,12 @@ function buttonFactory(
     )
 }
 
-export default function CircleCountdownTimer({
+export default function DigitCountdownTimer({
     subtitle="",
     subtitleOnRunning="",
     subtitleOnPause="",
     subtitleOnFinish=""
-}: CircleCountdownTimerProps) {
+}: DigitCountdownTimerProps) {
     const [totalTime, setTotaltime] = useState(600);
     const [displayTime, setDisplayTime] = useState(["1", "0", "0", "0"]);
     const [timer, setTimer, running, setRunning, finish, resetFunc] = useTimer(totalTime);
@@ -93,15 +92,6 @@ export default function CircleCountdownTimer({
 
     return (
         <div className={styles.container}>
-            <CircleProgress
-                r={30}
-                currentPercent={timer}
-                totalPercent={totalTime}
-                maxFillPercent={70}
-                className={styles.progress}
-                color="#7AB2D3"
-                trackColor="#1b1b1b"
-            />
             <div className={styles.center}>
                 <div className={styles.displayTime}>
                     {

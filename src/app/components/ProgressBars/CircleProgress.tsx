@@ -23,7 +23,7 @@ export default function CircleProgress({
     trackColor="#1e1e1e",
     className=""
 }: CircleProgressProps) {
-    const percent = totalPercent===0? maxFillPercent : Math.min(currentPercent / totalPercent * maxFillPercent, maxFillPercent);
+    const percent = totalPercent === 0? maxFillPercent : Math.min(currentPercent / totalPercent * maxFillPercent, maxFillPercent);
     
     return (
         <div className={`${styles.container} ${className}`}>

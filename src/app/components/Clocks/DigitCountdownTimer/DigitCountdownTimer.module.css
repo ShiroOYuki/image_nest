@@ -1,0 +1,67 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 1000px;
+    width: 1000px;
+
+    --icon-size: 50px;
+}
+
+.btn {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    opacity: 0%;
+
+    animation: fadeUp 3s forwards;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0%;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 100%;
+        transform: translateY(0px);
+    }
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(-25px);
+    height: 160px;
+}
+
+.displayTime, .displayTime input {
+    color: var(--font-color-default);
+    font-size: var(--font-xxl);
+    background-color: transparent;
+    text-align: center;
+    border: none;
+    width: 300px;
+}
+
+.displayTime:hover input {
+    outline-offset: 0px;
+    outline: -webkit-focus-ring-color auto 1px;    ;
+}
+
+.subtitle {
+    color: var(--font-color-default);
+    font-size: var(--font-l);
+    animation: fadeUp 1s forwards;
+}
+
+.control {
+    display: flex;
+    justify-content: center;
+    gap: var(--icon-size);
+    position: absolute;
+    top: 70%;
+    width: 100%;
+}
