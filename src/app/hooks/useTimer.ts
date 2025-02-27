@@ -30,6 +30,5 @@ export default function useTimer(totalTime: number): [number, Dispatch<SetStateA
         }
     }, [ct, running])
 
-
     return [ct, setTimer, running, setRunning, finish, resetTimer];
 }

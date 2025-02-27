@@ -25,7 +25,6 @@ export default function HomepageDesktopLayout({
     zenCanselButton,
     zenLayoutStyle
 }: HomepageLayoutProps) {
-    console.log(zenMode);
     return (
         <BackgroundContainer img={bgs[bgId]} className={styles.container} brightness={brightness}>
             {zenMode? <TimerLayout closeBtn={zenCanselButton} className={zenLayoutStyle} ref={timerLayoutRef}/>:<></>}

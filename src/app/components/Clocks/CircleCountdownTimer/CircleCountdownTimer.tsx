@@ -55,13 +55,6 @@ export default function CircleCountdownTimer({
         else setDisplaySubtitle(subtitle);
     }, [timer, running])
 
-    // set timer total time
-    useEffect(() => {
-        const newTotaltime = parseInt(displayTime.slice(0, 2).join("")) * 60 + parseInt(displayTime.slice(2, 4).join(""))
-        setTotaltime(newTotaltime);
-        setTimer(totalTime);
-    }, [displayTime]);
-
     // start timer button
     const startBtn = useMemo(() => {return buttonFactory(() => {setRunning(true)}, "/imgs/icons/play.svg")}, []);
 
@@ -82,13 +75,21 @@ export default function CircleCountdownTimer({
             e.preventDefault();
             const input = e.currentTarget.value.replace(/\D/g, "");
             
-            setDisplayTime(["0", ...input.padStart(4, "0").slice(0, 3)]);
+            const newDisplayTime = ["0", ...input.padStart(4, "0").slice(0, 3)];
+            const newTotaltime = parseInt(newDisplayTime.slice(0, 2).join("")) * 60 + parseInt(newDisplayTime.slice(2, 4).join(""))
+            setTotaltime(newTotaltime);
+            setTimer(newTotaltime);
+            setDisplayTime(newDisplayTime);
         }
         else if (isDigit(e.key)) {
             let input = e.currentTarget.value.replace(/\D/g, ""); // 只允許數字
             if (input.length > 4) input = input.slice(1, 5); // 限制 4 位數
 
-            setDisplayTime([...input.split("").slice(1, 4), e.key]);
+            const newDisplayTime = [...input.split("").slice(1, 4), e.key];
+            const newTotaltime = parseInt(newDisplayTime.slice(0, 2).join("")) * 60 + parseInt(newDisplayTime.slice(2, 4).join(""))
+            setTotaltime(newTotaltime);
+            setTimer(newTotaltime);
+            setDisplayTime(newDisplayTime);
         }
     }, []);
 

@@ -75,13 +75,9 @@ export default function Page() {
         src: "/imgs/icons/hourglass.svg",
         onClick: () => {
             setZenMode(true);
-            console.log("Click")
             const fadeIn = setTimeout(() => {
                 if (timerLayoutRef.current) {
                     timerLayoutRef.current.classList.remove(styles.hiddenLayout);
-                }
-                else {
-                    console.log("X");
                 }
             }, 10);
             return () => clearTimeout(fadeIn);
