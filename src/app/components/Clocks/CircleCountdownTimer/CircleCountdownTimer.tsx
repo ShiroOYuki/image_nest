@@ -13,6 +13,25 @@ interface CircleCountdownTimerProps {
     subtitleOnPause?: string;
 }
 
+function buttonFactory(
+    onClick: () => void,
+    iconSrc: string
+) {
+    return (
+        <ReactSVG
+            src={iconSrc}
+            beforeInjection={(svg) => {
+                svg.style.stroke = "white";
+                svg.style.strokeWidth = "2";
+                svg.style.width = "100%"
+                svg.style.height = "100%"
+            }}
+            onClick={onClick}
+            className={`${styles.icon} ${styles.hidden}`}
+        />
+    )
+}
+
 export default function CircleCountdownTimer({
     subtitle="",
     subtitleOnRunning="",
@@ -29,6 +48,7 @@ export default function CircleCountdownTimer({
     if (subtitleOnPause === "") subtitleOnPause = subtitle;
     if (subtitleOnFinish === "") subtitleOnFinish = subtitle;
 
+    // set subtitle
     useEffect(() => {
         if (finish) setDisplaySubtitle(subtitleOnFinish);
         else if (timer > 0 && !running) setDisplaySubtitle(subtitleOnPause);
@@ -36,62 +56,23 @@ export default function CircleCountdownTimer({
         else setDisplaySubtitle(subtitle);
     }, [timer, running])
 
+    // set timer total time
     useEffect(() => {
-        setTotaltime(parseInt(displayTime.slice(0, 2).join("")) * 60 + parseInt(displayTime.slice(2, 4).join("")));
+        const newTotaltime = parseInt(displayTime.slice(0, 2).join("")) * 60 + parseInt(displayTime.slice(2, 4).join(""))
+        setTotaltime(newTotaltime);
+        setTimer(totalTime);
     }, [displayTime]);
 
-    useEffect(() => {
-        setTimer(totalTime);
-    }, [totalTime]);
+    // start timer button
+    const startBtn = useMemo(() => {return buttonFactory(() => {setRunning(true)}, "/imgs/icons/play.svg")}, []);
 
-    const startBtn = useMemo(() => {
-        return (
-            <ReactSVG
-                src="/imgs/icons/play.svg"
-                beforeInjection={(svg) => {
-                    svg.style.stroke = "white";
-                    svg.style.strokeWidth = "2";
-                    svg.style.width = "100%"
-                    svg.style.height = "100%"
-                }}
-                onClick={() => {setRunning(true)}}
-                className={`${styles.icon} ${styles.hidden}`}
-            />
-        )
-    }, []);
+    // pause timer button
+    const pauseBtn = useMemo(() => {return buttonFactory(() => {setRunning(false)}, "/imgs/icons/square.svg")}, []);
 
-    const pauseBtn = useMemo(() => {
-        return (
-            <ReactSVG
-                src="/imgs/icons/square.svg"
-                beforeInjection={(svg) => {
-                    svg.style.stroke = "white";
-                    svg.style.strokeWidth = "2";
-                    svg.style.width = "100%"
-                    svg.style.height = "100%"
-                }}
-                onClick={() => {setRunning(false)}}
-                className={`${styles.icon} ${styles.hidden}`}
-            />
-        )
-    }, []);
+    // reset timer button
+    const resetBtn = useMemo(() => {return buttonFactory(resetFunc, "/imgs/icons/restart.svg")}, []);
 
-    const resetBtn = useMemo(() => {
-        return (
-            <ReactSVG
-                src="/imgs/icons/restart.svg"
-                beforeInjection={(svg) => {
-                    svg.style.stroke = "white";
-                    svg.style.strokeWidth = "2";
-                    svg.style.width = "100%"
-                    svg.style.height = "100%"
-                }}
-                onClick={resetFunc}
-                className={`${styles.icon} ${styles.hidden}`}
-            />
-        )
-    }, []);
-
+    // change total time when user input
     const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         let input = e.target.value.replace(/\D/g, ""); // 只允許數字
         if (input.length > 4) input = input.slice(1, 5); // 限制 4 位數
@@ -99,6 +80,7 @@ export default function CircleCountdownTimer({
         setDisplayTime(input.split(""));
     }, []);
 
+    // change total time when user delete a digit
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Backspace") {
             e.preventDefault();
@@ -139,7 +121,7 @@ export default function CircleCountdownTimer({
                                 value={`${displayTime[0]}${displayTime[1]}:${displayTime[2]}${displayTime[3]}`}
                                 onChange={handleChange}
                                 onKeyDown={handleKeyDown}
-                                maxLength={6}
+                                maxLength={5}
                             />
                         )
                     }

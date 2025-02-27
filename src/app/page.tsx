@@ -39,7 +39,7 @@ export default function Page() {
         return () => clearInterval(bgTimer);
     }, []);
 
-    // linear change background
+    // change background
     useEffect(() => {
         if (changing) {
             nowBrightness.current = brightness;
