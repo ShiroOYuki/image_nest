@@ -65,7 +65,7 @@ export default function DigitCountdownTimer({
 
     // change total time when user input
     const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
-        console.log(e.key, e.key === "Process", isDigit(e.key));
+        console.log(e.key, e.key === "Process", isDigit(e.key), e.code);
         if (e.key === "Process") {
             e.preventDefault();
             return;
