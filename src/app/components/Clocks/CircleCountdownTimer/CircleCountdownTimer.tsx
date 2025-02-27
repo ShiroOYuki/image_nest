@@ -119,6 +119,7 @@ export default function CircleCountdownTimer({
                         ) : (
                             <input 
                                 type="text" 
+                                inputMode="numeric"
                                 value={`${displayTime[0]}${displayTime[1]}:${displayTime[2]}${displayTime[3]}`}
                                 onChange={() => {}}
                                 onKeyDown={handleKeyDown}
