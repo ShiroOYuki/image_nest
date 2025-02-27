@@ -5,24 +5,14 @@ import BackgroundContainer from "@/app/components/Containers/BackgroundContainer
 import TimerLayout from "../timer/TimerLayout";
 import Calender1 from "@/app/components/Clocks/Calender1/Calender1";
 import Clock1 from "@/app/components/Clocks/Clock1/Clock1";
-import { WeatherCardFactory } from "@/app/components/Cards/WeatherCard/WeatherCard";
-import mixinStyles from "@/app/shared/styles/mixin.module.css";
 import { HomepageLayoutProps } from "./sharedInterface";
-import VerticalExpendedButton from "@/app/components/Buttons/VerticalExpendedButton/VerticalExpendedButton";
 
 export default function HomepageMobileLayout({
     bgs,
     bgId,
     brightness,
     zenMode,
-    changing,
-    location,
     timerLayoutRef,
-    nowBrightness,
-    setBrightness,
-    weatherButton,
-    changeImageButton,
-    zenButton,
     toolsButton,
     zenCanselButton,
     zenLayoutStyle

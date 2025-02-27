@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import SpinningLoader from "./components/LoadingAnimations/SpinningLoader/SpinningLoader";
 import { useLocation } from "./hooks/useLocation";
 import usePreloadBackground from "./hooks/usePreloadBackground";
-import HomepageDesktopLayout from "./layouts/homepage/HomepageDesktop";
 import { HomepageLayoutFactory } from "./layouts/homepage/HomepageLayoutFactory";
 import VerticalExpendedButton from "./components/Buttons/VerticalExpendedButton/VerticalExpendedButton";
 
