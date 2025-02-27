@@ -111,7 +111,7 @@ export default function DigitCountdownTimer({
                                 value={`${displayTime[0]}${displayTime[1]}:${displayTime[2]}${displayTime[3]}`}
                                 onChange={() => {}}
                                 onKeyDown={handleKeyDown}
-                                maxLength={5}
+                                maxLength={6}
                             />
                         )
                     }
