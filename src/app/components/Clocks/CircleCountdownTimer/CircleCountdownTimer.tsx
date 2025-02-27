@@ -3,6 +3,7 @@ import CircleProgress from "../../ProgressBars/CircleProgress";
 import styles from "./CircleCountdownTimer.module.css";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { ReactSVG } from "react-svg";
+import { isDigit } from "@/app/utils/utils";
 
 
 interface CircleCountdownTimerProps {
@@ -71,20 +72,23 @@ export default function CircleCountdownTimer({
     const resetBtn = useMemo(() => {return buttonFactory(resetFunc, "/imgs/icons/restart.svg")}, []);
 
     // change total time when user input
-    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        let input = e.target.value.replace(/\D/g, ""); // 只允許數字
-        if (input.length > 4) input = input.slice(1, 5); // 限制 4 位數
-
-        setDisplayTime(input.split(""));
-    }, []);
-
-    // change total time when user delete a digit
     const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Backspace") {
+        console.log(e.key, e.key === "Process", isDigit(e.key));
+        if (e.key === "Process") {
+            e.preventDefault();
+            return;
+        }
+        else if (e.key === "Backspace") {
             e.preventDefault();
             const input = e.currentTarget.value.replace(/\D/g, "");
             
             setDisplayTime(["0", ...input.padStart(4, "0").slice(0, 3)]);
+        }
+        else if (isDigit(e.key)) {
+            let input = e.currentTarget.value.replace(/\D/g, ""); // 只允許數字
+            if (input.length > 4) input = input.slice(1, 5); // 限制 4 位數
+
+            setDisplayTime([...input.split("").slice(1, 4), e.key]);
         }
     }, []);
 
@@ -115,9 +119,9 @@ export default function CircleCountdownTimer({
                             <input 
                                 type="text" 
                                 value={`${displayTime[0]}${displayTime[1]}:${displayTime[2]}${displayTime[3]}`}
-                                onChange={handleChange}
+                                onChange={() => {}}
                                 onKeyDown={handleKeyDown}
-                                maxLength={5}
+                                maxLength={6}
                             />
                         )
                     }
